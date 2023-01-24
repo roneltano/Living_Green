@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "566354866202",
+    "project_id": "livinggreen-faeea",
+    "storage_bucket": "livinggreen-faeea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566354866202:android:bbc1376a43fb4db06321a3",
+        "android_client_info": {
+          "package_name": "com.example.living_plant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "566354866202-adbaconh6q4dns2u643pr1vl9vho7jp1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbDJQY7OqcmHscX7C51X3ru9Xu35Vp99k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "566354866202-adbaconh6q4dns2u643pr1vl9vho7jp1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

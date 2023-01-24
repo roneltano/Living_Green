@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>566354866202-7tdo9ocnbn7enjvlhpdsnilc0p0lb68n.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.566354866202-7tdo9ocnbn7enjvlhpdsnilc0p0lb68n</string>
+	<key>API_KEY</key>
+	<string>AIzaSyADpBESx9XPluYr-w_OX23INucGcygNI3Q</string>
+	<key>GCM_SENDER_ID</key>
+	<string>566354866202</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.livingPlant</string>
+	<key>PROJECT_ID</key>
+	<string>livinggreen-faeea</string>
+	<key>STORAGE_BUCKET</key>
+	<string>livinggreen-faeea.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:566354866202:ios:ca19c569f8dd0d6e6321a3</string>
+</dict>
+</plist>
