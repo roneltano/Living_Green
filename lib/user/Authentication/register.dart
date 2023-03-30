@@ -55,7 +55,7 @@ class _UserRegister extends State<UserRegister> {
         context: context,
         barrierDismissible: false,
         builder: (context) => const loadingDialog(
-              message: "Please Wait, Getting your location",
+              message: "Please Wait, we're getting your location",
             )).then((value) {});
   }
 
@@ -199,17 +199,6 @@ class _UserRegister extends State<UserRegister> {
                             const SizedBox(
                               height: 5,
                             ),
-                            // customTextFieldRegsiterPage(
-                            //   textEditingController: _address,
-                            //   icon: const Icon(Icons.location_on),
-                            //   isSecure: false,
-                            //   textInputType: TextInputType.emailAddress,
-                            //   enabledEdit: true,
-                            //   hint: "Address",
-                            // ),
-                            const SizedBox(
-                              height: 5,
-                            ),
                             customTextFieldRegsiterPage(
                               textEditingController: _mobileNumber,
                               widget: const Icon(Icons.phone),
@@ -228,6 +217,17 @@ class _UserRegister extends State<UserRegister> {
                               textInputType: TextInputType.emailAddress,
                               enabledEdit: true,
                               hint: "Email",
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            customTextFieldRegsiterPage(
+                              textEditingController: _address,
+                              widget: const Icon(Icons.location_on),
+                              isSecure: false,
+                              textInputType: TextInputType.text,
+                              enabledEdit: true,
+                              hint: "Address",
                             ),
                             const SizedBox(
                               height: 5,
@@ -276,14 +276,6 @@ class _UserRegister extends State<UserRegister> {
                             const SizedBox(
                               height: 5,
                             ),
-                            customTextFieldRegsiterPage(
-                              textEditingController: _address,
-                              widget: const Icon(Icons.location_on),
-                              isSecure: false,
-                              textInputType: TextInputType.text,
-                              enabledEdit: true,
-                              hint: "Address",
-                            ),
                             Container(
                               alignment: Alignment.center,
                               child: ElevatedButton.icon(
@@ -295,15 +287,6 @@ class _UserRegister extends State<UserRegister> {
                             ),
                           ],
                         ),
-                        // TextButton(
-                        //   onPressed: () {
-                        //     forgetPassword();
-                        //   },
-                        //   child: const Text(
-                        //     "Forget Password?",
-                        //     style: TextStyle(color: Colors.grey),
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
@@ -321,7 +304,7 @@ class _UserRegister extends State<UserRegister> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "you have account?",
+                      "You have an account?",
                       style: TextStyle(color: Colors.white),
                     ),
                     TextButton(
@@ -330,7 +313,7 @@ class _UserRegister extends State<UserRegister> {
                             MaterialPageRoute(builder: (_) => UserLogin());
                         Navigator.pushReplacement(context, route);
                       },
-                      child: const Text("Login"),
+                      child: const Text("Log In"),
                     ),
                   ],
                 ),
@@ -341,8 +324,10 @@ class _UserRegister extends State<UserRegister> {
                     Navigator.push(context, route);
                   },
                   child: const Text(
-                    "Become Plant Expert/Botanist?",
-                    style: TextStyle(color: LivingPlant.primaryColor),
+                    "Become a Plant Expert/Botanist?",
+                    style: TextStyle(
+                        color: LivingPlant.primaryColor,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(
@@ -382,7 +367,7 @@ class _UserRegister extends State<UserRegister> {
         : showDialog(
             context: context,
             builder: (_) => const errorDialog(
-              message: "Password Don't Match",
+              message: "Password do not match",
             ),
           );
   }

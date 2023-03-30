@@ -216,7 +216,7 @@ class _UpdateInformation extends State<UpdateInformation> {
                       child: const Padding(
                         padding: EdgeInsets.all(15.0),
                         child: Text(
-                          "Update Date",
+                          "Update Profile",
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,

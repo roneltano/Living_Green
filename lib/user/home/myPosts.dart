@@ -57,9 +57,6 @@ class _MyPosts extends State<MyPosts> {
                               .data!.docs[index]['postedImageUrl']
                               .toString();
 
-                          // String userStatus = snapshot
-                          //     .data!.docs[index]['accountStatus']
-                          //     .toString();
                           return Container(
                             padding: const EdgeInsets.all(10),
                             margin: const EdgeInsets.symmetric(

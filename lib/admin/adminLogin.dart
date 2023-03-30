@@ -73,7 +73,7 @@ class _AdminLogin extends State<AdminLogin> {
                         forgetPassword();
                       },
                       child: const Text(
-                        "Forget Password?",
+                        "Forgot Password?",
                         style: TextStyle(color: Colors.grey),
                       ),
                     ),
@@ -93,7 +93,7 @@ class _AdminLogin extends State<AdminLogin> {
                   borderRadius: BorderRadius.circular(3),
                 ),
                 child: const Text(
-                  "Login In",
+                  "Log In",
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
@@ -102,7 +102,7 @@ class _AdminLogin extends State<AdminLogin> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Don't Have an account ?"),
+                const Text("You don't have an account?"),
                 TextButton(
                   onPressed: () {
                     Route route =

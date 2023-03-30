@@ -41,56 +41,6 @@ class _customChat extends State<customChat> {
     return sentence?.split(" ").sublist(0, wordCounts).join(" ");
   }
 
-  // _customChat(this.adminID, this.adminName);
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   checkUser();
-  // }
-
-  // void checkUser() async {
-  //   await FirebaseFirestore.instance
-  //       .collection('chats')
-  //       .where('users',
-  //           isEqualTo: {"adminID": adminID, "UserID": currentUserId})
-  //       .limit(1)
-  //       .get()
-  //       .then(
-  //         (QuerySnapshot querySnapshot) async {
-  //           if (querySnapshot.docs.isNotEmpty) {
-  //             setState(() {
-  //               chatDocId = querySnapshot.docs.single.id;
-  //             });
-
-  //             print(chatDocId);
-  //           } else {
-  //             await chats.add({
-  //               'users': {"adminID": adminID, "UserID": currentUserId},
-  //               "adminID": adminID,
-  //               "userName": FindConfig.sharedPreferences!
-  //                   .getString(FindConfig.userName),
-  //             }).then((value) => {chatDocId = value});
-  //           }
-  //         },
-  //       )
-  //       .catchError(
-  //         (error) {},
-  //       );
-  // }
-
-  // void gettingUserData() async {
-  //   technicianApp.firestore!
-  //       .collection("users")
-  //       .doc(currentUserId)
-  //       .get()
-  //       .then((result) {
-  //     setState(() {
-  //       userName = result.data()!['name'];
-  //     });
-  //     print("This is the name${userName}");
-  //   });
-  // }
-
   sendMessage(String msg) {
     var tradeProvider = Provider.of<traderProvider>(context, listen: false);
 

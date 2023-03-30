@@ -171,7 +171,7 @@ class _IdentifyImagePage extends State<IdentifyImagePage> {
       showDialog(
           context: context,
           builder: (_) => const errorDialog(
-              message: "This doesn't seem like a plant? try again"));
+              message: "This doesn't seem like a plant? Try Again."));
     }
   }
 

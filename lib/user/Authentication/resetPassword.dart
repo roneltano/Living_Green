@@ -16,7 +16,7 @@ class resetPassword extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       backgroundColor: const Color(0xfff6f6f6),
       appBar: AppBar(
-        title: Text("Restet Password"),
+        title: const Text("Reset Password"),
         centerTitle: true,
       ),
       body: Column(
@@ -97,7 +97,7 @@ class resetPassword extends StatelessWidget {
         ? resetPasswordFun(context)
         : showDialog(
             context: context,
-            builder: (_) => const errorDialog(message: "Please Put Email"),
+            builder: (_) => const errorDialog(message: "Please input Email"),
           );
   }
 
@@ -105,7 +105,7 @@ class resetPassword extends StatelessWidget {
     showDialog(
       context: context,
       builder: (_) => const loadingDialog(
-        message: "Reseting Password",
+        message: "Resetting Password",
       ),
     );
     resetingPassword(context);
@@ -128,7 +128,7 @@ class resetPassword extends StatelessWidget {
         showDialog(
           context: context,
           builder: (_) => const errorDialog(
-              message: "Please make sure the email is corect"),
+              message: "Please make sure the email is correct"),
         );
       },
     );

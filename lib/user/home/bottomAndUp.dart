@@ -280,7 +280,7 @@ class _bottomAndUp extends State<bottomAndUp> {
                       decoration: InputDecoration(
                         isCollapsed: false,
                         isDense: true,
-                        hintText: "What’s on your mind, $firstName ?",
+                        hintText: "What’s on your mind, $firstName?",
                         hintStyle: const TextStyle(fontSize: 10),
                         suffixStyle:
                             const TextStyle(color: LivingPlant.primaryColor),

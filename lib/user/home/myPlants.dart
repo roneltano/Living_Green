@@ -199,7 +199,7 @@ class _MyPlants extends State<MyPlants> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            "Your Collected Plants",
+                            "Plant",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Color(0XFF36455A),
@@ -299,7 +299,7 @@ class _MyPlants extends State<MyPlants> {
                                                                   builder: (_) =>
                                                                       const errorDialog(
                                                                           message:
-                                                                              "Plant Was Deletedt"),
+                                                                              "Plant Was Deleted"),
                                                                 );
                                                               },
                                                             );
@@ -505,7 +505,7 @@ class _MyPlants extends State<MyPlants> {
                                             plantAskedUID);
                                       },
                                       child: const Text(
-                                        "Want This?",
+                                        "Want this?",
                                       ),
                                     )
                                   ],
@@ -530,125 +530,12 @@ class _MyPlants extends State<MyPlants> {
         );
       },
     );
-
-    // showModalBottomSheet<void>(
-    //   context: context,
-    //   builder: (BuildContext context) {
-    //     return Container(
-    //       height: 350,
-    //       decoration: BoxDecoration(
-    //         borderRadius: BorderRadius.circular(10),
-    //       ),
-    //       child: StreamBuilder(
-    //         stream: LivingPlant.firebaseFirestore!
-    //             .collection("plantsCollection")
-    //             .snapshots(),
-    //         builder: (context, snapshot) {
-    //           if (snapshot.connectionState == ConnectionState.waiting) {
-    //             return const CircularProgressIndicator();
-    //           } else {
-    //             return GridView.builder(
-    //               shrinkWrap: true,
-    //               itemCount: snapshot.data!.docs.length,
-    //               reverse: true,
-    //               scrollDirection: Axis.horizontal,
-    //               itemBuilder: (context, index) {
-    //                 return Container(
-    //                   decoration: BoxDecoration(
-    //                     borderRadius: BorderRadius.circular(5),
-    //                     color: Colors.grey.shade200,
-    //                   ),
-    //                   padding: EdgeInsets.only(right: 5, left: 5),
-    //                   margin: const EdgeInsets.all(10),
-    //                   child: Column(
-    //                     mainAxisAlignment: MainAxisAlignment.center,
-    //                     crossAxisAlignment: CrossAxisAlignment.center,
-    //                     children: [
-    //                       Container(
-    //                         decoration: BoxDecoration(
-    //                           borderRadius: BorderRadius.circular(10),
-    //                         ),
-    //                         padding: const EdgeInsets.only(
-    //                             right: 10, top: 10, left: 10),
-    //                         height: 200,
-    //                         width: MediaQuery.of(context).size.width / 1,
-    //                         child: ClipRRect(
-    //                           borderRadius: BorderRadius.circular(10.0),
-    //                           child: Image.network(
-    //                             snapshot.data!.docs[index]['plantUrl'],
-    //                             fit: BoxFit.fill,
-    //                           ),
-    //                         ),
-    //                       ),
-    //                       const SizedBox(
-    //                         height: 10,
-    //                       ),
-    //                       Text(
-    //                         snapshot.data!.docs[index]['plantName'],
-    //                         style: const TextStyle(
-    //                             color: Colors.black,
-    //                             fontWeight: FontWeight.bold),
-    //                       ),
-    //                       Text(
-    //                         "${getFirstWords(snapshot.data!.docs[index]['plantDescription'].toString(), 7).toString()}...",
-    //                         style: const TextStyle(
-    //                           color: Colors.black,
-    //                           fontSize: 10,
-    //                         ),
-    //                         textAlign: TextAlign.center,
-    //                       ),
-    //                       ElevatedButton(
-    //                         onPressed: () {},
-    //                         child: const Text(
-    //                           "Chat Now",
-    //                         ),
-    //                       )
-    //                     ],
-    //                   ),
-    //                 );
-    //               },
-    //               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-    //                 crossAxisCount: 1,
-    //                 crossAxisSpacing: 10,
-    //                 mainAxisExtent: 256,
-    //               ),
-    //             );
-    //           }
-    //         },
-    //       ),
-    //     );
-    //   },
-    // );
   }
 
   void checkingUser(String userTradeTwoFullName, String plantNameTow,
       String locationTowTrade, String plantUrl, String plantAskedUID) async {
     var postProvider = Provider.of<postPageProvider>(context, listen: false);
     var tradeProvider = Provider.of<traderProvider>(context, listen: false);
-
-    // Once the plant is picked, it will be pending for trade.
-    // LivingPlant.firebaseFirestore!
-    //     .collection("plantsCollection")
-    //     .doc(plantAskedUID)
-    //     .update(
-    //   {
-    //     "PlantAvilability": "pending",
-    //   },
-    // );
-
-    // tradeProvider.updateTradeTowPlantPicked(plantAskedUID);
-    // //Trying Trade Tow
-    // tradeProvider.updateTradeTowUid(postProvider.getUserProfile.toString());
-    // tradeProvider.updateTradeTowFirstName(userTradeTwoFullName);
-    // tradeProvider.updateTradeTowPlantName(plantNameTow);
-
-    // tradeProvider.updateTradeTOwPlantImage(plantUrl);
-    // tradeProvider.updateTradeTowPlantLocation(locationTowTrade);
-
-    // tradeProvider.updateTradeStatus("Pending");
-
-    // // for the profile image
-    // tradeProvider.updateTradeProfileUrl(imageProfileUrl!);
 
     await LivingPlant.firebaseFirestore!
         .collection('chats')
@@ -739,9 +626,6 @@ class _MyPlants extends State<MyPlants> {
                   tradeProvider.updateCommonID(value.id);
                 },
               );
-
-              // Route route = MaterialPageRoute(builder: (_) => customChat());
-              // Navigator.push(context, route);
               Navigator.pop(context);
             }
           },

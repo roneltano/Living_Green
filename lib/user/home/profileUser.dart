@@ -62,18 +62,6 @@ class _profileUserState extends State<profileUser> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          // imageGetting.length > 5
-                          //     ? CircleAvatar(
-                          //         backgroundColor: Colors.black12,
-                          //         backgroundImage: NetworkImage(imageGetting),
-                          //         radius:
-                          //             MediaQuery.of(context).size.width * 0.1,
-                          //       )
-                          //     : CircleAvatar(
-                          //         backgroundColor: Colors.black12,
-                          //         radius:
-                          //             MediaQuery.of(context).size.width * 0.1,
-                          //       ),
                           const SizedBox(
                             height: 10,
                           ),

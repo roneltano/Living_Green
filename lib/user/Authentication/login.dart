@@ -92,7 +92,7 @@ class _UserLogin extends State<UserLogin> {
                               forgetPassword();
                             },
                             child: const Text(
-                              "Forget Password?",
+                              "Forgot Password?",
                               style: TextStyle(color: Colors.grey),
                             ),
                           ),
@@ -112,7 +112,7 @@ class _UserLogin extends State<UserLogin> {
                         borderRadius: BorderRadius.circular(3),
                       ),
                       child: const Text(
-                        "Login In",
+                        "Log In",
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       ),
@@ -121,7 +121,7 @@ class _UserLogin extends State<UserLogin> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Don't Have an account ?"),
+                      const Text("You don't have an account?"),
                       TextButton(
                         onPressed: () {
                           Route route = MaterialPageRoute(
@@ -160,7 +160,7 @@ class _UserLogin extends State<UserLogin> {
   signIn() async {
     showDialog(
         context: context,
-        builder: (_) => loadingDialog(message: "Authenticating"));
+        builder: (_) => loadingDialog(message: "Authenticating..."));
     await LivingPlant.firebaseAuth!
         .signInWithEmailAndPassword(
             email: _email.text.trim(), password: _password.text.trim())
@@ -213,25 +213,6 @@ class _UserLogin extends State<UserLogin> {
             Navigator.pushReplacement(context, route);
             break;
           case "expert":
-            // LivingPlant.sharedPreferences!.setString(
-            //     LivingPlant.expertFirstName, result.data()!['firstName']);
-
-            // LivingPlant.sharedPreferences!.setString(
-            //     LivingPlant.expertSecondName, result.data()!['lastName']);
-
-            // LivingPlant.sharedPreferences!.setString(
-            //     LivingPlant.expertAddress, result.data()!['address']);
-
-            // LivingPlant.sharedPreferences!
-            //     .setString(LivingPlant.expertEmail, result.data()!['email']);
-
-            // LivingPlant.sharedPreferences!
-            //     .setString(LivingPlant.expertImage, result.data()!['imageUrl']);
-
-            // LivingPlant.sharedPreferences!.setInt(
-            //     LivingPlant.expertMobileNum.toString(),
-            //     result.data()!['mobileNumber']);
-
             LivingPlant.sharedPreferences!
                 .setString(LivingPlant.firstName, result.data()!['firstName']);
 

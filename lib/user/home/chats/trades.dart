@@ -46,7 +46,7 @@ class tradesMaking extends StatelessWidget {
                             size: 70,
                           ),
                           Text(
-                            "Penidng Trades",
+                            "Pending Trades",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,

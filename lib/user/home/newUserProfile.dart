@@ -163,7 +163,7 @@ class NewUserProfile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
                         Icon(
-                          FontAwesome5.heart,
+                          FontAwesome5.check_circle,
                           color: LivingPlant.primaryColor,
                           size: 17,
                         ),
