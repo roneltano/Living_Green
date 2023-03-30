@@ -19,7 +19,7 @@ class _adminHomePage extends State<adminHomePage> {
       appBar: AppBar(
         flexibleSpace: Container(),
         title: const Text(
-          "Living Plant",
+          "LivingGreen",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 22,

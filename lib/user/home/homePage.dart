@@ -688,35 +688,4 @@ class _HomePage extends State<HomePage> {
       Navigator.pop(context);
     });
   }
-
-  // voteUp() {
-  //   // FocusScope.of(context).unfocus();
-  //   var postProvider = Provider.of<postPageProvider>(context, listen: false);
-  //   if (postProvider.getvotedAlready == false) {
-  //     showDialog(
-  //       context: context,
-  //       builder: (_) => const loadingDialog(message: ""),
-  //     );
-  //     User? user = config.LivingPlant.firebaseAuth!.currentUser;
-  //     String currentUser = user!.uid;
-
-  //     config.LivingPlant.firebaseFirestore!
-  //         .collection("posts")
-  //         .doc(postProvider.getPOSTUID)
-  //         .collection("comments")
-  //         .doc(postProvider.getcommentID)
-  //         .update({
-  //       "commentCount": postProvider.getCommentCount! + 1,
-  //       "votedAlready": true,
-  //     }).then((value) {
-  //       _comment.clear();
-  //       // setState(() {
-  //       //   _comment.text = '';
-  //       //   CommentCount;
-  //       // });
-
-  //       Navigator.pop(context);
-  //     });
-  //   }
-  // }
 }

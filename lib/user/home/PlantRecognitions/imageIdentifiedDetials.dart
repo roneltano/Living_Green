@@ -390,7 +390,7 @@ class _ImageIdentifiedDetialsState extends State<ImageIdentifiedDetials> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    askThePropleFunction();
+                    askThePeopleFunction();
                   },
                   child: const Text("Ask the people"),
                 ),
@@ -480,26 +480,7 @@ class _ImageIdentifiedDetialsState extends State<ImageIdentifiedDetials> {
   }
 
   // Asking the people Functions
-  askThePropleFunction() async {
-    // String imageDownloadUrl = await uploadingItemImage(widget.imageXfile);
-
-    // try {
-    //   var imageId = await ImageDownloader.downloadImage(url).then((value) {
-    //     if (value != null) {
-    //       showDialog(
-    //         context: context,
-    //         builder: (_) =>
-    //             const errorDialog(message: "Image Downloaded Sussfully"),
-    //       );
-    //     }
-    //   });
-    //   if (imageId == null) {
-    //     return;
-    //   }
-    // } on PlatformException catch (error) {
-    //   print("This is the Error ${error}");
-    // }
-
+  askThePeopleFunction() async {
     var gettingDataFromPriovider =
         Provider.of<imageRecogntionProvider>(context, listen: false);
 

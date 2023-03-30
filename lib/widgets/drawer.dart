@@ -82,7 +82,7 @@ class adminDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                   title: const Text(
-                    "Chnage API",
+                    "Change API",
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {

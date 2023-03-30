@@ -87,7 +87,7 @@ class _apiPageState extends State<apiPage> {
   updateAPIFunction() {
     showDialog(
         context: context,
-        builder: (_) => const loadingDialog(message: "Update API"));
+        builder: (_) => const loadingDialog(message: "Updating API"));
     LivingPlant.firebaseFirestore!
         .collection("api")
         .doc("HEmMnpsEKMje2B6TUSYU")
