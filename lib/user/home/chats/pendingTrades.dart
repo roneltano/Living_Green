@@ -338,43 +338,153 @@ class _PendingTrades extends State<PendingTrades> {
                                           snapshot.data!.docs[index][
                                                       'PlantPickedByWantingToGiveUID'] !=
                                                   ''
-                                              ? ElevatedButton(
-                                                  onPressed: () {
-                                                    print(snapshot
-                                                        .data!.docs[index].id);
-                                                    tradeProvider.updateChatUid(
-                                                        snapshot.data!
+                                              ? Row(
+                                                  children: [
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        print(snapshot.data!
                                                             .docs[index].id);
-                                                    Navigator.of(context).push(
-                                                      MaterialPageRoute(
-                                                        builder: (_) =>
-                                                            exisitingChat(),
-                                                      ),
-                                                    );
-                                                  },
-                                                  style: ElevatedButton.styleFrom(
-                                                      shape:
-                                                          const StadiumBorder()),
-                                                  child: const Text("Chat"),
+                                                        tradeProvider
+                                                            .updateChatUid(
+                                                                snapshot
+                                                                    .data!
+                                                                    .docs[index]
+                                                                    .id);
+                                                        Navigator.of(context)
+                                                            .push(
+                                                          MaterialPageRoute(
+                                                            builder: (_) =>
+                                                                exisitingChat(),
+                                                          ),
+                                                        );
+                                                      },
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                              shape:
+                                                                  const StadiumBorder()),
+                                                      child: const Text("Chat"),
+                                                    ),
+                                                    ElevatedButton(
+                                                      onPressed: () async {
+                                                        if (snapshot.data!.docs[
+                                                                        index][
+                                                                    'TraderAskedStatus'] ==
+                                                                "Accepted" &&
+                                                            snapshot.data!.docs[
+                                                                        index][
+                                                                    'TraderAcceptingStatust'] ==
+                                                                "Accepted") {
+                                                          ////////////////////////// First Trader //////////////////////////////////////
+                                                          await LivingPlant
+                                                              .firebaseFirestore!
+                                                              .collection(
+                                                                  "plantsCollection")
+                                                              .doc(snapshot
+                                                                  .data!
+                                                                  .docs[index][
+                                                                      'PlantAskedUid']
+                                                                  .toString())
+                                                              .update({
+                                                            "plantName": snapshot
+                                                                .data!
+                                                                .docs[index][
+                                                                    'PlantPickedByTraderName']
+                                                                .toString(),
+                                                            "plantUrl": snapshot
+                                                                .data!
+                                                                .docs[index][
+                                                                    'PlantPickedByTraderUrl']
+                                                                .toString(),
+                                                            "dateAdded": dateFromat
+                                                                    .DateFormat(
+                                                                        'dd-MM-yyyy')
+                                                                .format(DateTime
+                                                                    .now()),
+                                                            "plantDescription":
+                                                                "noDes",
+                                                            "userUID": snapshot
+                                                                .data!
+                                                                .docs[index][
+                                                                    'TraderAskedUid']
+                                                                .toString(),
+                                                            "userFullName": snapshot
+                                                                    .data!
+                                                                    .docs[index]
+                                                                [
+                                                                'TraderAskedFullName'],
+                                                            "location": snapshot
+                                                                    .data!
+                                                                    .docs[index]
+                                                                [
+                                                                'PlantPickedByTraderLocation'],
+                                                          }).then((value) async {
+                                                            ////////////////////////// Second Trader //////////////////////////////////////
+                                                            await LivingPlant
+                                                                .firebaseFirestore!
+                                                                .collection(
+                                                                    "plantsCollection")
+                                                                .doc(snapshot
+                                                                    .data!
+                                                                    .docs[index]
+                                                                        [
+                                                                        'PlantPickedByWantingToGiveUID']
+                                                                    .toString())
+                                                                .update({
+                                                              "plantName": snapshot
+                                                                  .data!
+                                                                  .docs[index][
+                                                                      'PlantPickedByWantingToGiveName']
+                                                                  .toString(),
+                                                              "plantUrl": snapshot
+                                                                  .data!
+                                                                  .docs[index][
+                                                                      'PlantPickedByWantingToGiveUrl']
+                                                                  .toString(),
+                                                              "dateAdded": dateFromat
+                                                                      .DateFormat(
+                                                                          'dd-MM-yyyy')
+                                                                  .format(DateTime
+                                                                      .now()),
+                                                              "plantDescription":
+                                                                  "noDes",
+                                                              "userUID": snapshot
+                                                                  .data!
+                                                                  .docs[index][
+                                                                      'TraderAcceptingUid']
+                                                                  .toString(),
+                                                              "userFullName": snapshot
+                                                                          .data!
+                                                                          .docs[
+                                                                      index][
+                                                                  'TraderAcceptingFullName'],
+                                                              "location": snapshot
+                                                                          .data!
+                                                                          .docs[
+                                                                      index][
+                                                                  'PlantPickedByWantingToGiveLocation'],
+                                                            });
+                                                            await LivingPlant
+                                                                .firebaseFirestore!
+                                                                .collection(
+                                                                    "chats")
+                                                                .doc(tradeProvider
+                                                                    .getChatUid!)
+                                                                .update({
+                                                              "TradeStatus":
+                                                                  "Accepted",
+                                                            });
+                                                          });
+                                                        }
+                                                        Navigator.pop(context);
+                                                        tradeProvider
+                                                            .updateChatUid('');
+                                                      },
+                                                      child:
+                                                          Text("Confirm Trade"),
+                                                    )
+                                                  ],
                                                 )
                                               : Container()
-                                          // : ElevatedButton(
-                                          //     onPressed: () {
-                                          //       print(snapshot
-                                          //           .data!.docs[index].id);
-                                          //       Navigator.of(context).push(
-                                          //         MaterialPageRoute(
-                                          //           builder: (_) => exisitingChat(
-                                          //             chatUID: snapshot
-                                          //                 .data!.docs[index].id,
-                                          //           ),
-                                          //         ),
-                                          //       );
-                                          //     },
-                                          //     style: ElevatedButton.styleFrom(
-                                          //         shape: const StadiumBorder()),
-                                          //     child: const Text("Chat"),
-                                          //   ),
                                         ],
                                       ),
                                     )
@@ -384,258 +494,6 @@ class _PendingTrades extends State<PendingTrades> {
                         }
                       },
                     ),
-                    // Expanded(
-                    //   child: SingleChildScrollView(
-                    //     child: Column(
-                    //       children: [
-                    //         StreamBuilder<QuerySnapshot>(
-                    //           stream: LivingPlant.firebaseFirestore!
-                    //               .collection("chats")
-                    //               .doc(tradeProvider.getCommonID)
-                    //               .collection('messages')
-                    //               .orderBy('createdOn', descending: true)
-                    //               .snapshots(),
-                    //           builder: (BuildContext context,
-                    //               AsyncSnapshot<QuerySnapshot> snapshot) {
-                    //             if (snapshot.hasError) {
-                    //               return const Center(
-                    //                 child: Text("Something went wrong"),
-                    //               );
-                    //             }
-                    //             if (snapshot.connectionState ==
-                    //                 ConnectionState.waiting) {
-                    //               return const Center(
-                    //                 child: CircularProgressIndicator(),
-                    //               );
-                    //             }
-                    //             if (snapshot.hasData) {
-                    //               return Column(
-                    //                 children: [
-                    //                   ListView.builder(
-                    //                     shrinkWrap: true,
-                    //                     physics: const NeverScrollableScrollPhysics(),
-                    //                     reverse: true,
-                    //                     itemCount: snapshot.data!.docs.length,
-                    //                     itemBuilder: (context, index) {
-                    //                       var data = snapshot.data!.docs[index];
-                    //                       String reciverUserImageProfile = snapshot
-                    //                           .data!
-                    //                           .docs[index]['ReceiverImageProfile'];
-                    //                       String senderUserImageProfile = snapshot
-                    //                           .data!.docs[index]['senderProfileImage'];
-                    //                       return Column(
-                    //                         children: [
-                    //                           senderUserImageProfile.length > 5
-                    //                               ? isSender(snapshot.data!.docs[index]
-                    //                                       ['sender'])
-                    //                                   ? Padding(
-                    //                                       padding:
-                    //                                           const EdgeInsets.all(5.0),
-                    //                                       child: Column(
-                    //                                         children: [
-                    //                                           Row(
-                    //                                             mainAxisAlignment:
-                    //                                                 MainAxisAlignment
-                    //                                                     .end,
-                    //                                             crossAxisAlignment:
-                    //                                                 CrossAxisAlignment
-                    //                                                     .center,
-                    //                                             children: [
-                    //                                               Flexible(
-                    //                                                 child: Container(
-                    //                                                   padding:
-                    //                                                       const EdgeInsets
-                    //                                                           .all(10),
-                    //                                                   decoration:
-                    //                                                       BoxDecoration(
-                    //                                                     color: Colors
-                    //                                                         .white,
-                    //                                                     borderRadius:
-                    //                                                         BorderRadius
-                    //                                                             .circular(
-                    //                                                       20,
-                    //                                                     ),
-                    //                                                   ),
-                    //                                                   child: Text(
-                    //                                                     snapshot
-                    //                                                         .data!
-                    //                                                         .docs[index]
-                    //                                                             ['msg']
-                    //                                                         .toString(),
-                    //                                                   ),
-                    //                                                 ),
-                    //                                               ),
-                    //                                               const SizedBox(
-                    //                                                 width: 10,
-                    //                                               ),
-                    //                                               CircleAvatar(
-                    //                                                 backgroundColor:
-                    //                                                     Colors.black12,
-                    //                                                 backgroundImage:
-                    //                                                     NetworkImage(
-                    //                                                         senderUserImageProfile),
-                    //                                                 radius: 23,
-                    //                                               ),
-                    //                                             ],
-                    //                                           ),
-                    //                                         ],
-                    //                                       ),
-                    //                                     )
-                    //                                   : Padding(
-                    //                                       padding:
-                    //                                           const EdgeInsets.all(5.0),
-                    //                                       child: Column(
-                    //                                         children: [
-                    //                                           Row(
-                    //                                             mainAxisAlignment:
-                    //                                                 MainAxisAlignment
-                    //                                                     .start,
-                    //                                             crossAxisAlignment:
-                    //                                                 CrossAxisAlignment
-                    //                                                     .center,
-                    //                                             children: [
-                    //                                               CircleAvatar(
-                    //                                                 backgroundColor:
-                    //                                                     Colors.black12,
-                    //                                                 backgroundImage:
-                    //                                                     NetworkImage(
-                    //                                                         reciverUserImageProfile),
-                    //                                                 radius: 23,
-                    //                                               ),
-                    //                                               const SizedBox(
-                    //                                                 width: 10,
-                    //                                               ),
-                    //                                               Flexible(
-                    //                                                 child: Container(
-                    //                                                   padding:
-                    //                                                       const EdgeInsets
-                    //                                                           .all(10),
-                    //                                                   decoration:
-                    //                                                       BoxDecoration(
-                    //                                                     color: Colors
-                    //                                                         .white,
-                    //                                                     borderRadius:
-                    //                                                         BorderRadius
-                    //                                                             .circular(
-                    //                                                       20,
-                    //                                                     ),
-                    //                                                   ),
-                    //                                                   child: Text(
-                    //                                                     snapshot
-                    //                                                         .data!
-                    //                                                         .docs[index]
-                    //                                                             ['msg']
-                    //                                                         .toString(),
-                    //                                                   ),
-                    //                                                 ),
-                    //                                               ),
-                    //                                             ],
-                    //                                           ),
-                    //                                         ],
-                    //                                       ),
-                    //                                     )
-                    //                               : const CircleAvatar(
-                    //                                   backgroundColor: Colors.black12,
-                    //                                   radius: 23,
-                    //                                 ),
-                    //                         ],
-                    //                       );
-                    //                     },
-                    //                   ),
-                    //                 ],
-                    //               );
-                    //             } else {
-                    //               return Container();
-                    //             }
-                    //           },
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //   children: [
-                    //     Expanded(
-                    //       child: Padding(
-                    //         padding: const EdgeInsets.only(left: 18.0),
-                    //         child: CupertinoTextField(
-                    //           controller: _textController,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     CupertinoButton(
-                    //       child: const Icon(Icons.send_sharp),
-                    //       onPressed: () => sendMessage(_textController.text),
-                    //     ),
-                    //   ],
-                    // ),
-                    // Container(
-                    //   padding:
-                    //       const EdgeInsets.only(right: 10, bottom: 2, top: 2, left: 10),
-                    //   decoration: BoxDecoration(
-                    //       borderRadius: BorderRadius.circular(6), color: Colors.white),
-                    //   height: 55,
-                    //   child: Row(
-                    //     children: [
-                    //       Expanded(
-                    //         flex: 6,
-                    //         child: TextField(
-                    //           controller: _textController,
-                    //           obscureText: false,
-                    //           cursorColor: LivingPlant.primaryColor,
-                    //           keyboardType: TextInputType.text,
-                    //           decoration: InputDecoration(
-                    //             filled: true,
-                    //             isCollapsed: true,
-                    //             isDense: true,
-                    //             suffixIconColor: LivingPlant.primaryColor,
-                    //             suffixStyle:
-                    //                 const TextStyle(color: LivingPlant.primaryColor),
-                    //             border: OutlineInputBorder(
-                    //               borderSide: const BorderSide(
-                    //                 width: 1,
-                    //                 color: LivingPlant.primaryColor,
-                    //               ),
-                    //               borderRadius: BorderRadius.circular(30),
-                    //             ),
-                    //             hintText: "hint",
-                    //             focusedBorder: OutlineInputBorder(
-                    //               borderSide: const BorderSide(
-                    //                 width: 1,
-                    //                 color: LivingPlant.primaryColor,
-                    //               ),
-                    //               borderRadius: BorderRadius.circular(30),
-                    //             ),
-
-                    //             contentPadding: const EdgeInsets.all(12), //
-                    //           ),
-                    //         ),
-                    //       ),
-                    //       Expanded(
-                    //         flex: 1,
-                    //         child: IconButton(
-                    //           icon: SvgPicture.asset(
-                    //             "images/send.svg",
-                    //             height: 25,
-                    //           ),
-                    //           onPressed: () {
-                    //             sendMessage(
-                    //               _textController.text,
-                    //             );
-                    //           },
-                    //         ),
-
-                    //         // child: GestureDetector(
-                    //         //   onTap: () {
-                    //         //     sendMessage(_textController.text);
-                    //         //   },
-                    //         //   child: SvgPicture.asset("images/send.svg"),
-                    //         // ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -643,317 +501,6 @@ class _PendingTrades extends State<PendingTrades> {
           ),
         ),
       ),
-      // body: Column(
-      //   children: [
-      //     Container(
-      //       child: StreamBuilder<QuerySnapshot>(
-      //         stream: LivingPlant.firebaseFirestore!
-      //             .collection("chats")
-      //             .where("TradeStatus", isEqualTo: "pending")
-      //             .snapshots(),
-      //         builder: (context, snapshot) {
-      //           return !snapshot.hasData
-      //               ? Container(
-      //                   child: const Center(
-      //                     child: CircularProgressIndicator(),
-      //                   ),
-      //                 )
-      //               : Column(
-      //                   crossAxisAlignment: CrossAxisAlignment.start,
-      //                   children: [
-      //                     ListView.builder(
-      //                       shrinkWrap: true,
-      //                       physics: const NeverScrollableScrollPhysics(),
-      //                       itemBuilder: (context, index) {
-      //                         if (snapshot.data!.docs[index]['TraderAskedUid'] ==
-      //                             currentUserUid) {
-      //                           return InkWell(
-      //                             child: Padding(
-      //                               padding: const EdgeInsets.all(15.0),
-      //                               child: Container(
-      //                                 decoration: BoxDecoration(
-      //                                     borderRadius: BorderRadius.circular(12),
-      //                                     color: const Color(0XFFE3E3E3)),
-      //                                 child: Row(
-      //                                   mainAxisAlignment:
-      //                                       MainAxisAlignment.spaceBetween,
-      //                                   children: [
-      //                                     Padding(
-      //                                       padding: const EdgeInsets.all(8.0),
-      //                                       child: Container(
-      //                                         decoration: BoxDecoration(
-      //                                           color: Colors.white,
-      //                                           borderRadius:
-      //                                               BorderRadius.circular(10),
-      //                                         ),
-      //                                         padding: const EdgeInsets.all(10),
-      //                                         width: 140,
-      //                                         child: Column(
-      //                                           mainAxisAlignment:
-      //                                               MainAxisAlignment.spaceAround,
-      //                                           children: [
-      //                                             Container(
-      //                                               decoration: BoxDecoration(
-      //                                                 borderRadius:
-      //                                                     BorderRadius.circular(10),
-      //                                               ),
-      //                                               width: 130,
-      //                                               height: 100,
-      //                                               child: ClipRRect(
-      //                                                 borderRadius:
-      //                                                     BorderRadius.circular(
-      //                                                         10.0),
-      //                                                 child: Image.network(
-      //                                                   snapshot
-      //                                                       .data!
-      //                                                       .docs[index][
-      //                                                           'PlantPickedByWantingToGiveUrl']
-      //                                                       .toString(),
-      //                                                   fit: BoxFit.fill,
-      //                                                 ),
-      //                                               ),
-      //                                             ),
-      //                                             const Text(
-      //                                               "Your Trade",
-      //                                               style: TextStyle(
-      //                                                   fontWeight: FontWeight.bold,
-      //                                                   fontSize: 12),
-      //                                             ),
-      //                                             Text(
-      //                                               snapshot.data!.docs[index]
-      //                                                   ['PlantPickedByTraderName'],
-      //                                               style: const TextStyle(
-      //                                                 fontSize: 12,
-      //                                               ),
-      //                                             ),
-      //                                           ],
-      //                                         ),
-      //                                       ),
-      //                                     ),
-      //                                     Padding(
-      //                                       padding:
-      //                                           const EdgeInsets.only(right: 15),
-      //                                       child: IconButton(
-      //                                           onPressed: () {
-      //                                             // currentChatID =
-      //                                             //     snapshot.data!.docs[index].id;
-      //                                             // Route route = MaterialPageRoute(
-      //                                             //   builder: (c) => chatchat(
-      //                                             //     currentChatID: currentChatID,
-      //                                             //     AdminIdName: snapshot
-      //                                             //         .data!.docs[index]['userName'],
-      //                                             //   ),
-      //                                             // );
-      //                                             // Navigator.push(context, route);
-      //                                             Navigator.of(context).push(
-      //                                               MaterialPageRoute(
-      //                                                 builder: (_) => exisitingChat(
-      //                                                     chatUID: snapshot.data!
-      //                                                         .docs[index].id),
-      //                                               ),
-      //                                             );
-      //                                           },
-      //                                           icon: const Icon(
-      //                                             Icons.message,
-      //                                             size: 30,
-      //                                             color: LivingPlant.primaryColor,
-      //                                           )),
-      //                                     )
-      //                                   ],
-      //                                 ),
-      //                               ),
-      //                             ),
-      //                           );
-      //                         }
-      //                         if (snapshot.data!.docs[index]['secondUser'] ==
-      //                             currentUserUid) {
-      //                           return InkWell(
-      //                             child: Padding(
-      //                               padding: const EdgeInsets.all(15.0),
-      //                               child: Container(
-      //                                 decoration: BoxDecoration(
-      //                                     borderRadius: BorderRadius.circular(12),
-      //                                     color: const Color(0XFFE3E3E3)),
-      //                                 child: Row(
-      //                                   mainAxisAlignment:
-      //                                       MainAxisAlignment.spaceBetween,
-      //                                   children: [
-      //                                     Padding(
-      //                                       padding: const EdgeInsets.all(8.0),
-      //                                       child: Container(
-      //                                         decoration: BoxDecoration(
-      //                                           color: Colors.white,
-      //                                           borderRadius:
-      //                                               BorderRadius.circular(10),
-      //                                         ),
-      //                                         padding: const EdgeInsets.all(10),
-      //                                         width: 140,
-      //                                         child: Column(
-      //                                           mainAxisAlignment:
-      //                                               MainAxisAlignment.spaceAround,
-      //                                           children: [
-      //                                             Container(
-      //                                               decoration: BoxDecoration(
-      //                                                 borderRadius:
-      //                                                     BorderRadius.circular(10),
-      //                                               ),
-      //                                               width: 130,
-      //                                               height: 100,
-      //                                               child: ClipRRect(
-      //                                                 borderRadius:
-      //                                                     BorderRadius.circular(
-      //                                                         10.0),
-      //                                                 child: Image.network(
-      //                                                   snapshot
-      //                                                       .data!
-      //                                                       .docs[index]
-      //                                                           ['PlantChoosedUrl']
-      //                                                       .toString(),
-      //                                                   fit: BoxFit.fill,
-      //                                                 ),
-      //                                               ),
-      //                                             ),
-      //                                             const Text(
-      //                                               "Your Trade",
-      //                                               style: TextStyle(
-      //                                                   fontWeight: FontWeight.bold,
-      //                                                   fontSize: 12),
-      //                                             ),
-      //                                             Text(
-      //                                               snapshot.data!.docs[index]
-      //                                                   ['plantChoosedName'],
-      //                                               style: const TextStyle(
-      //                                                 fontSize: 12,
-      //                                               ),
-      //                                             ),
-      //                                           ],
-      //                                         ),
-      //                                       ),
-      //                                     ),
-      //                                     Padding(
-      //                                       padding:
-      //                                           const EdgeInsets.only(right: 15),
-      //                                       child: IconButton(
-      //                                           onPressed: () {
-      //                                             String userTradeTwoFullName =
-      //                                                 snapshot.data!.docs[index]
-      //                                                     ['firstName'];
-
-      //                                             String plantNameTow =
-      //                                                 snapshot.data!.docs[index]
-      //                                                     ['plantChoosedName'];
-
-      //                                             String locationTowTrade =
-      //                                                 snapshot.data!.docs[index]
-      //                                                     ['PlantChosedLocation'];
-
-      //                                             String plantUrl =
-      //                                                 snapshot.data!.docs[index]
-      //                                                     ['PlantChoosedUrl'];
-      //                                             var postProvider =
-      //                                                 Provider.of<postPageProvider>(
-      //                                                     context,
-      //                                                     listen: false);
-      //                                             var tradeProvider =
-      //                                                 Provider.of<traderProvider>(
-      //                                                     context,
-      //                                                     listen: false);
-
-      //                                             // var imageProfileUrl = snapshot
-      //                                             //     .data!.docs[0]['imageUrl'];
-
-      //                                             // currentChatID =
-      //                                             //     snapshot.data!.docs[index].id;
-      //                                             // Route route = MaterialPageRoute(
-      //                                             //   builder: (c) => chatchat(
-      //                                             //     currentChatID: currentChatID,
-      //                                             //     AdminIdName: snapshot
-      //                                             //         .data!.docs[index]['userName'],
-      //                                             //   ),
-      //                                             // );
-      //                                             // Navigator.push(context, route);
-      //                                             //Trying Trade Tow
-      //                                             // tradeProvider.updateTradeTowUid(
-      //                                             //     postProvider.getUserProfile
-      //                                             //         .toString());
-      //                                             // tradeProvider
-      //                                             //     .updateTradeTowFirstName(
-      //                                             //         userTradeTwoFullName);
-      //                                             // tradeProvider
-      //                                             //     .updateTradeTowPlantName(
-      //                                             //         plantNameTow);
-
-      //                                             // tradeProvider
-      //                                             //     .updateTradeTOwPlantImage(
-      //                                             //         plantUrl);
-      //                                             // tradeProvider
-      //                                             //     .updateTradeTowPlantLocation(
-      //                                             //         locationTowTrade);
-
-      //                                             // tradeProvider
-      //                                             //     .updateTradeStatus("Pending");
-
-      //                                             // // for the profile image
-      //                                             // tradeProvider
-      //                                             //     .updateTradeProfileUrl(
-      //                                             //         imageProfileUrl!);
-
-      //                                             Navigator.of(context).push(
-      //                                               MaterialPageRoute(
-      //                                                 builder: (_) => exisitingChat(
-      //                                                     chatUID: snapshot.data!
-      //                                                         .docs[index].id),
-      //                                               ),
-      //                                             );
-      //                                             //Trying Trade Tow
-      //                                             tradeProvider.updateTradeTowUid(
-      //                                                 postProvider.getUserProfile
-      //                                                     .toString());
-
-      //                                             tradeProvider
-      //                                                 .updateTradeTowFirstName(
-      //                                                     userTradeTwoFullName);
-      //                                             tradeProvider
-      //                                                 .updateTradeTowPlantName(
-      //                                                     plantNameTow);
-
-      //                                             tradeProvider
-      //                                                 .updateTradeTOwPlantImage(
-      //                                                     plantUrl);
-      //                                             tradeProvider
-      //                                                 .updateTradeTowPlantLocation(
-      //                                                     locationTowTrade);
-
-      //                                             // for the profile image
-      //                                             // tradeProvider
-      //                                             //     .updateTradeProfileUrl(
-      //                                             //         imageProfileUrl!);
-      //                                           },
-      //                                           icon: const Icon(
-      //                                             Icons.message,
-      //                                             size: 30,
-      //                                             color: LivingPlant.primaryColor,
-      //                                           )),
-      //                                     )
-      //                                   ],
-      //                                 ),
-      //                               ),
-      //                             ),
-      //                           );
-      //                         } else {
-      //                           return const Text("");
-      //                         }
-      //                         // currentChatID = snapshot.data!.docs[index].id;
-      //                       },
-      //                       itemCount: snapshot.data!.docs.length,
-      //                     ),
-      //                   ],
-      //                 );
-      //         },
-      //       ),
-      //     ),
-      //   ],
-      // ),
     );
   }
 

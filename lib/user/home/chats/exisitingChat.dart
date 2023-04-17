@@ -297,71 +297,7 @@ class _exisitingChat extends State<exisitingChat> {
                                             ),
                                           ),
                                           // This is for Picking Plant to choose
-                                        )
-                                        // Container(
-                                        //     width: MediaQuery.of(context)
-                                        //         .size
-                                        //         .width,
-                                        //     padding:
-                                        //         const EdgeInsets.all(10),
-                                        //     height: 100,
-                                        //     decoration: BoxDecoration(
-                                        //         color:
-                                        //             const Color(0XFFC4C4C4),
-                                        //         borderRadius:
-                                        //             BorderRadius.circular(
-                                        //                 10)),
-                                        //     child: Column(
-                                        //       children: [
-                                        //         const Icon(
-                                        //           Icons
-                                        //               .question_mark_outlined,
-                                        //           size: 30,
-                                        //         ),
-                                        //         ElevatedButton(
-                                        //           style: ButtonStyle(
-                                        //             backgroundColor:
-                                        //                 MaterialStateProperty
-                                        //                     .all(
-                                        //               const Color(
-                                        //                   0XFFFFFFFF),
-                                        //             ),
-                                        //             padding:
-                                        //                 MaterialStateProperty
-                                        //                     .all(
-                                        //               const EdgeInsets.only(
-                                        //                 top: 5,
-                                        //                 bottom: 5,
-                                        //                 left: 10,
-                                        //                 right: 10,
-                                        //               ),
-                                        //             ),
-                                        //             shape:
-                                        //                 MaterialStateProperty
-                                        //                     .all(
-                                        //               RoundedRectangleBorder(
-                                        //                 borderRadius:
-                                        //                     BorderRadius
-                                        //                         .circular(
-                                        //                   20.0,
-                                        //                 ),
-                                        //               ),
-                                        //             ),
-                                        //           ),
-                                        //           onPressed: () {
-                                        //             // showingBottomToUp();
-                                        //           },
-                                        //           child: const Text(
-                                        //             "Browse",
-                                        //             style: TextStyle(
-                                        //                 color:
-                                        //                     Colors.black),
-                                        //           ),
-                                        //         ),
-                                        //       ],
-                                        //     ),
-                                        //   ),
-                                        ,
+                                        ),
                                         Text(
                                           snapshot
                                               .data!

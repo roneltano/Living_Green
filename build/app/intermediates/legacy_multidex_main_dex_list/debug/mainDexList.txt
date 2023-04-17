@@ -1,5 +1,7 @@
 android/annotation/SuppressLint.class
 android/annotation/TargetApi.class
+androidx/activity/result/contract/ActivityResultContracts$CreateDocument.class
+androidx/activity/result/contract/ActivityResultContracts$TakeVideo.class
 androidx/annotation/AnimRes.class
 androidx/annotation/AnimatorRes.class
 androidx/annotation/AnyRes.class
@@ -98,6 +100,7 @@ androidx/core/app/NotificationCompat$StreamType.class
 androidx/core/app/RemoteInput$EditChoicesBeforeSending.class
 androidx/core/app/RemoteInput$Source.class
 androidx/core/app/ServiceCompat$StopForegroundFlags.class
+androidx/core/content/ContextCompat$RegisterReceiverFlags.class
 androidx/core/content/PackageManagerCompat$UnusedAppRestrictionsStatus.class
 androidx/core/content/PermissionChecker$PermissionResult.class
 androidx/core/content/pm/PermissionInfoCompat$Protection.class
@@ -128,6 +131,7 @@ androidx/exifinterface/media/ExifInterface$ExifStreamType.class
 androidx/exifinterface/media/ExifInterface$IfdType.class
 androidx/lifecycle/Lifecycle$Event.class
 androidx/lifecycle/OnLifecycleEvent.class
+androidx/lifecycle/viewmodel/ViewModelFactoryDsl.class
 androidx/multidex/MultiDex$V14$ElementConstructor.class
 androidx/multidex/MultiDex$V14$ICSElementConstructor.class
 androidx/multidex/MultiDex$V14$JBMR11ElementConstructor.class
@@ -150,6 +154,7 @@ androidx/window/core/ExperimentalWindowApi.class
 androidx/window/embedding/SplitRule$LayoutDir.class
 com/google/android/gms/auth/api/phone/SmsCodeAutofillClient$PermissionState.class
 com/google/android/gms/common/GmsSignatureVerifier.class
+com/google/android/gms/common/GoogleApiAvailability.class
 com/google/android/gms/common/GoogleSignatureVerifier.class
 com/google/android/gms/common/PackageSignatureVerifier.class
 com/google/android/gms/common/SignInButton$ButtonSize.class
@@ -161,7 +166,12 @@ com/google/android/gms/common/annotation/KeepName.class
 com/google/android/gms/common/annotation/NonNullApi.class
 com/google/android/gms/common/internal/HideFirstParty.class
 com/google/android/gms/common/internal/ShowFirstParty.class
+com/google/android/gms/common/internal/TelemetryLoggingClient.class
+com/google/android/gms/common/moduleinstall/ModuleAvailabilityResponse$AvailabilityStatus.class
+com/google/android/gms/common/moduleinstall/ModuleInstallStatusUpdate$InstallState.class
 com/google/android/gms/common/util/DynamiteApi.class
+com/google/android/gms/internal/base/zad.class
+com/google/android/gms/internal/base/zae.class
 com/google/android/gms/internal/common/zzac.class
 com/google/android/gms/internal/common/zzag.class
 com/google/android/gms/internal/common/zzah.class
@@ -180,6 +190,8 @@ com/google/android/gms/internal/common/zzz.class
 com/google/android/gms/location/ActivityTransition$SupportedActivityTransition.class
 com/google/android/gms/location/Granularity.class
 com/google/android/gms/location/Priority.class
+com/google/android/play/core/integrity/model/IntegrityErrorCode.class
+com/google/android/recaptcha/internal/zzbf.class
 com/google/common/annotations/Beta.class
 com/google/common/annotations/GwtCompatible.class
 com/google/common/annotations/GwtIncompatible.class
@@ -246,6 +258,10 @@ com/google/errorprone/annotations/concurrent/UnlockMethod.class
 com/google/firebase/annotations/DeferredApi.class
 com/google/firebase/annotations/PreviewApi.class
 com/google/firebase/annotations/PublicApi.class
+com/google/firebase/annotations/concurrent/Background.class
+com/google/firebase/annotations/concurrent/Blocking.class
+com/google/firebase/annotations/concurrent/Lightweight.class
+com/google/firebase/annotations/concurrent/UiThread.class
 com/google/firebase/auth/ActionCodeResult$ActionDataKey.class
 com/google/firebase/auth/ActionCodeResult$Operation.class
 com/google/firebase/firestore/DocumentId.class
@@ -254,6 +270,9 @@ com/google/firebase/firestore/IgnoreExtraProperties.class
 com/google/firebase/firestore/PropertyName.class
 com/google/firebase/firestore/ServerTimestamp.class
 com/google/firebase/firestore/ThrowOnExtraProperties.class
+com/google/firebase/firestore/local/MemoryRemoteDocumentCache.class
+com/google/firebase/firestore/local/RemoteDocumentCache.class
+com/google/firebase/firestore/local/SQLiteRemoteDocumentCache.class
 com/google/firebase/firestore/util/AsyncQueue.class
 com/google/firebase/firestore/util/Preconditions.class
 com/google/firebase/platforminfo/AutoValue_LibraryVersion.class
@@ -301,6 +320,7 @@ io/grpc/internal/ClientTransportFactory.class
 io/grpc/internal/ConnectivityStateManager.class
 io/grpc/internal/DelayedClientTransport.class
 io/grpc/internal/DelayedStream.class
+io/grpc/internal/KeepAliveEnforcer.class
 io/grpc/internal/ManagedClientTransport.class
 io/grpc/internal/NoopClientStream.class
 io/grpc/internal/RetriableStream$State.class
@@ -348,6 +368,11 @@ javax/annotation/meta/TypeQualifierDefault.class
 javax/annotation/meta/TypeQualifierNickname.class
 javax/annotation/meta/TypeQualifierValidator.class
 javax/annotation/meta/When.class
+javax/inject/Inject.class
+javax/inject/Named.class
+javax/inject/Qualifier.class
+javax/inject/Scope.class
+javax/inject/Singleton.class
 kotlin/BuilderInference.class
 kotlin/ContextFunctionTypeParams.class
 kotlin/DeepRecursiveScope.class
@@ -463,7 +488,11 @@ kotlinx/coroutines/CompletableDeferred$DefaultImpls.class
 kotlinx/coroutines/CompletableJob$DefaultImpls.class
 kotlinx/coroutines/CoroutineDispatcher.class
 kotlinx/coroutines/Deferred$DefaultImpls.class
+kotlinx/coroutines/Delay$DefaultImpls.class
+kotlinx/coroutines/Delay.class
 kotlinx/coroutines/DelicateCoroutinesApi.class
+kotlinx/coroutines/EventLoopImplBase.class
+kotlinx/coroutines/ExecutorCoroutineDispatcherImpl.class
 kotlinx/coroutines/ExperimentalCoroutinesApi.class
 kotlinx/coroutines/FlowPreview.class
 kotlinx/coroutines/InternalCoroutinesApi.class
@@ -477,6 +506,7 @@ kotlinx/coroutines/ObsoleteCoroutinesApi.class
 kotlinx/coroutines/ParentJob$DefaultImpls.class
 kotlinx/coroutines/ParentJob.class
 kotlinx/coroutines/SupervisorKt.class
+kotlinx/coroutines/android/HandlerDispatcher.class
 kotlinx/coroutines/android/HandlerDispatcherKt.class
 kotlinx/coroutines/channels/AbstractChannel$Itr.class
 kotlinx/coroutines/channels/AbstractChannel.class
@@ -501,13 +531,16 @@ kotlinx/coroutines/channels/ReceiveChannel.class
 kotlinx/coroutines/channels/SendChannel$DefaultImpls.class
 kotlinx/coroutines/channels/SendChannel.class
 kotlinx/coroutines/flow/FlowKt.class
-kotlinx/coroutines/flow/FlowKt__BuildersKt.class
 kotlinx/coroutines/flow/FlowKt__ChannelsKt.class
+kotlinx/coroutines/flow/FlowKt__CollectKt.class
 kotlinx/coroutines/flow/FlowKt__ContextKt.class
-kotlinx/coroutines/flow/FlowKt__ErrorsKt.class
 kotlinx/coroutines/flow/FlowKt__MigrationKt.class
 kotlinx/coroutines/flow/LintKt.class
+kotlinx/coroutines/internal/LimitedDispatcher.class
 kotlinx/coroutines/scheduling/ExperimentalCoroutineDispatcher.class
+kotlinx/coroutines/sync/Mutex$DefaultImpls.class
+kotlinx/coroutines/tasks/TasksKt$asDeferredImpl$3.class
+kotlinx/coroutines/test/TestCoroutineContext$Dispatcher.class
 kotlinx/coroutines/test/TestCoroutineContext.class
 kotlinx/coroutines/test/TestCoroutineContextKt.class
 org/checkerframework/checker/builder/qual/CalledMethods.class

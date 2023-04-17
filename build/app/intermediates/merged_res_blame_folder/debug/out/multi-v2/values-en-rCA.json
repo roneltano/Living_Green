@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Ronel\\Desktop\\LivingGreen-main\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-en-rCA\\values-en-rCA.xml",
+            "outputFile": "Z:\\flutter\\Living_GreenV3\\Living_Green\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-en-rCA\\values-en-rCA.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Ronel\\.gradle\\caches\\transforms-3\\297942c3957902ff7659eb1bc47c3617\\transformed\\browser-1.4.0\\res\\values-en-rCA\\values-en-rCA.xml",
+                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-3\\297942c3957902ff7659eb1bc47c3617\\transformed\\browser-1.4.0\\res\\values-en-rCA\\values-en-rCA.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Ronel\\.gradle\\caches\\transforms-3\\005627934cb5de51d804cd3c597f8200\\transformed\\core-1.8.0\\res\\values-en-rCA\\values-en-rCA.xml",
+                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-3\\82546ab4767d1df2b6d62dc3a615a8f7\\transformed\\core-1.9.0\\res\\values-en-rCA\\values-en-rCA.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
