@@ -7,7 +7,6 @@ import 'package:living_plant/user/home/myPlants.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/searchProvider.dart';
-import '../../providers/searchProvider.dart';
 
 class searchingPage extends StatefulWidget {
   const searchingPage({super.key});

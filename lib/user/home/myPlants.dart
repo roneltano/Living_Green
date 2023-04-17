@@ -34,6 +34,7 @@ class _MyPlants extends State<MyPlants> {
   //For the chat
   var chatDocId;
   String? imageProfileUrl;
+  var userData = {};
 
   @override
   Widget build(BuildContext context) {
@@ -263,6 +264,55 @@ class _MyPlants extends State<MyPlants> {
                                                                     .docs[index]
                                                                 ['plantName'] ??
                                                             '',
+                                                      ),
+                                                    ),
+                                                    //insert code here for modal,
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        showModalBottomSheet(
+                                                          context: context,
+                                                          builder: (BuildContext
+                                                              context) {
+                                                            return Container(
+                                                              height: 200,
+                                                              color:
+                                                                  Colors.white,
+                                                              child: Center(
+                                                                child:
+                                                                    SingleChildScrollView(
+                                                                  child: Column(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: <
+                                                                        Widget>[
+                                                                      const Text(
+                                                                        "Informations: ",
+                                                                        style: TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            fontSize: 24.0),
+                                                                      ),
+                                                                      Container(
+                                                                        padding:
+                                                                            const EdgeInsets.all(16.0),
+                                                                        child:
+                                                                            Text(
+                                                                          snapshot.data!.docs[index]['plantDescription'] ??
+                                                                              '',
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons.info,
+                                                        color: Colors.green,
                                                       ),
                                                     ),
                                                   ],
