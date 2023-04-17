@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:living_plant/config/config.dart';
 import 'package:living_plant/providers/imageRecogntionProvider.dart';
 import 'package:living_plant/providers/postPageProvider.dart';
+import 'package:living_plant/providers/searchProvider.dart';
 import 'package:living_plant/providers/traderProvider.dart';
 import 'package:living_plant/splashScreen/splashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,6 +33,9 @@ Future<void> main() async {
         ),
         ListenableProvider<traderProvider>(
           create: (_) => traderProvider(),
+        ),
+        ListenableProvider<searchProvider>(
+          create: (_) => searchProvider(),
         ),
         // ChangeNotifierProvider<traderProvider>(
         //   create: (_) => traderProvider(),

@@ -204,7 +204,10 @@ int id text2 0x7f050056
 int id time 0x7f050057
 int id title 0x7f050058
 int id view_tree_lifecycle_owner 0x7f050059
-int id wide 0x7f05005a
+int id view_tree_on_back_pressed_dispatcher_owner 0x7f05005a
+int id view_tree_saved_state_registry_owner 0x7f05005b
+int id view_tree_view_model_store_owner 0x7f05005c
+int id wide 0x7f05005d
 int integer google_play_services_version 0x7f060000
 int integer status_bar_notification_info_maxnum 0x7f060001
 int layout browser_actions_context_menu_page 0x7f070000

@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:living_plant/config/config.dart';
 import 'package:living_plant/main.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:living_plant/user/home/myPlants.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/searchProvider.dart';
+import '../../providers/searchProvider.dart';
 
 class searchingPage extends StatefulWidget {
   const searchingPage({super.key});
@@ -15,7 +20,12 @@ class _searchingPageState extends State<searchingPage> {
   String searching = "";
   List? newList;
   List? oldList;
+  List? uNewList;
+  List? uOldList;
+
   String? plantName;
+  String nameSearch = "";
+
   var chatDocId;
 
   String imageGetting =
@@ -33,157 +43,322 @@ class _searchingPageState extends State<searchingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.all(15),
-          width: MediaQuery.of(context).size.width,
-          color: Colors.grey.shade300,
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(Icons.arrow_back_rounded),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    flex: 12,
-                    child: TextField(
-                      onChanged: (value) {
-                        setState(() {
-                          newList = oldList!
-                              .where((element) =>
-                                  plantName!.toLowerCase().contains(searching))
-                              .toList();
-                          searching = value;
-                        });
-                        // updateINform(value);
-                      },
-                      decoration: InputDecoration(
-                        isDense: true,
-                        contentPadding: const EdgeInsets.all(10),
-                        filled: true,
-                        fillColor: Colors.white,
-                        focusColor: LivingPlant.primaryColor,
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Colors.transparent, width: 2.0),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        hintText: 'Search',
-                        hintStyle:
-                            const TextStyle(color: Colors.grey, fontSize: 11),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: Container(
-                  height: MediaQuery.of(context).size.height,
-                  child: StreamBuilder(
-                    stream: LivingPlant.firebaseFirestore!
-                        .collection("plantsCollection")
-                        .where("userUID", isNotEqualTo: currentUser)
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      // Update Information
+    var searchprovider = Provider.of<searchProvider>(context, listen: true);
 
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        oldList = snapshot.data!.docs;
-                        newList = List.from(snapshot.data!.docs);
-                        return GridView.builder(
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 10,
-                            mainAxisExtent: 256,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Search"),
+          bottom: const TabBar(tabs: [
+            Tab(icon: Icon(Icons.nature_people), text: "Plant search"),
+            Tab(
+              icon: Icon(Icons.supervised_user_circle),
+              text: "User Search",
+            ),
+          ]),
+        ),
+        body: TabBarView(
+          children: [
+            SafeArea(
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                width: MediaQuery.of(context).size.width,
+                color: Colors.grey.shade300,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(Icons.arrow_back_rounded),
                           ),
-                          shrinkWrap: true,
-                          itemCount: newList!.length,
-                          itemBuilder: (context, index) {
-                            plantName = snapshot.data!.docs[index]['plantName'];
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          flex: 12,
+                          child: TextField(
+                            onChanged: (value) {
+                              setState(() {
+                                newList = oldList!
+                                    .where((element) => plantName!
+                                        .toLowerCase()
+                                        .contains(searching))
+                                    .toList();
+                                searching = value;
+                              });
+                              // updateINform(value);
+                            },
+                            decoration: InputDecoration(
+                              isDense: true,
+                              contentPadding: const EdgeInsets.all(10),
+                              filled: true,
+                              fillColor: Colors.white,
+                              focusColor: LivingPlant.primaryColor,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.transparent, width: 2.0),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              hintText: 'Search',
+                              hintStyle: const TextStyle(
+                                  color: Colors.grey, fontSize: 11),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Expanded(
+                      child: Container(
+                        height: MediaQuery.of(context).size.height,
+                        child: StreamBuilder(
+                          stream: LivingPlant.firebaseFirestore!
+                              .collection("plantsCollection")
+                              .where("userUID", isNotEqualTo: currentUser)
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            // Update Information
 
-                            if (plantName!
-                                .toLowerCase()
-                                .startsWith(searching)) {
-                              return GestureDetector(
-                                onTap: () {
-                                  showingData();
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.all(5),
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    color: Colors.white,
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        height: 150,
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                2,
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          child: Image.network(
-                                            snapshot.data!.docs[index]
-                                                ['plantUrl'],
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        snapshot.data!.docs[index]['plantName'],
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(snapshot.data!.docs[index]
-                                          ['userFullName']),
-                                      Text(snapshot.data!.docs[index]
-                                          ['location']),
-                                    ],
-                                  ),
-                                ),
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
                               );
                             } else {
-                              return const Text('');
+                              oldList = snapshot.data!.docs;
+                              newList = List.from(snapshot.data!.docs);
+                              return GridView.builder(
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 10,
+                                  mainAxisExtent: 256,
+                                ),
+                                shrinkWrap: true,
+                                itemCount: newList!.length,
+                                itemBuilder: (context, index) {
+                                  plantName =
+                                      snapshot.data!.docs[index]['plantName'];
+
+                                  if (plantName!
+                                      .toLowerCase()
+                                      .startsWith(searching)) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        showingData();
+                                      },
+                                      child: Container(
+                                        margin: const EdgeInsets.all(5),
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: Colors.white,
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              height: 150,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2,
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                                child: Image.network(
+                                                  snapshot.data!.docs[index]
+                                                      ['plantUrl'],
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              snapshot.data!.docs[index]
+                                                  ['plantName'],
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(snapshot.data!.docs[index]
+                                                ['userFullName']),
+                                            Text(snapshot.data!.docs[index]
+                                                ['location']),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    return const Text('');
+                                  }
+                                },
+                              );
                             }
                           },
-                        );
-                      }
-                    },
-                  ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+
+            //User Search
+            SafeArea(
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                width: MediaQuery.of(context).size.width,
+                color: Colors.grey.shade300,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(Icons.arrow_back_rounded),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          flex: 12,
+                          child: TextField(
+                            onChanged: (value) {
+                              setState(() {
+                                // uNewList = uOldList!
+                                //     .where((element) =>
+                                //         firstName!.toLowerCase().contains(name))
+                                //     .toList();
+                                nameSearch = value;
+                              });
+                              // updateINform(value);
+                            },
+                            decoration: InputDecoration(
+                              isDense: true,
+                              contentPadding: const EdgeInsets.all(10),
+                              filled: true,
+                              fillColor: Colors.white,
+                              focusColor: LivingPlant.primaryColor,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Colors.transparent, width: 2.0),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              hintText: 'Search',
+                              hintStyle: const TextStyle(
+                                  color: Colors.grey, fontSize: 11),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Expanded(
+                        child: Container(
+                      height: MediaQuery.of(context).size.height,
+                      child: StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('users')
+                              .where("firstName", isEqualTo: nameSearch)
+                              .snapshots(),
+                          builder: (context, snapshots) {
+                            return (snapshots.connectionState ==
+                                    ConnectionState.waiting)
+                                ? const Center(
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : ListView.builder(
+                                    itemCount: snapshots.data!.docs.length,
+                                    itemBuilder: (BuildContext context, index) {
+                                      var selectedUser = snapshots
+                                          .data!.docs[index]['UserUid'];
+                                      var data = snapshots.data!.docs[index]
+                                          .data() as Map<String, dynamic>;
+                                      if (data['firstName']
+                                          .toString()
+                                          .toLowerCase()
+                                          .startsWith(
+                                              nameSearch.toLowerCase())) {
+                                        return SizedBox(
+                                          child: selectedUser != currentUser
+                                              ? ListTile(
+                                                  onTap: () {
+                                                    searchprovider
+                                                        .updateUserSearchProfile(
+                                                            selectedUser);
+                                                    Route route =
+                                                        MaterialPageRoute(
+                                                            builder: (_) =>
+                                                                const MyPlants());
+                                                    Navigator.push(
+                                                        context, route);
+                                                  },
+                                                  title: Text(
+                                                    data['firstName'],
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: const TextStyle(
+                                                        color: Colors.black54,
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  subtitle: Text(
+                                                    data['email'],
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: const TextStyle(
+                                                        color: Colors.black54,
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  leading: CircleAvatar(
+                                                    backgroundImage:
+                                                        NetworkImage(
+                                                            data['imageUrl']),
+                                                  ),
+                                                )
+                                              : Container(),
+                                        );
+                                      }
+                                      return Container();
+                                    });
+                          }),
+                    ))
+                  ],
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
