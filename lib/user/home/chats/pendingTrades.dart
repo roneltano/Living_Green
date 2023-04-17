@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:living_plant/DialogBox/loadingDialog.dart';
 import 'package:living_plant/config/config.dart';
 import 'package:living_plant/providers/postPageProvider.dart';
 import 'package:living_plant/providers/traderProvider.dart';
@@ -29,6 +30,10 @@ class _PendingTrades extends State<PendingTrades> {
 
   String? getFirstWords(String? sentence, int wordCounts) {
     return sentence?.split(" ").sublist(0, wordCounts).join(" ");
+  }
+
+  bool isSender(String friend) {
+    return friend == currentUserId;
   }
 
   @override
@@ -341,7 +346,46 @@ class _PendingTrades extends State<PendingTrades> {
                                               ? Row(
                                                   children: [
                                                     ElevatedButton(
-                                                      onPressed: () {
+                                                      onPressed: () async {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (_) =>
+                                                              const loadingDialog(
+                                                                  message:
+                                                                      "Trading Plant, Please wait"),
+                                                        );
+                                                        isSender(snapshot.data!
+                                                                    .docs[index]
+                                                                [
+                                                                'TraderAskedUid'])
+                                                            ? await LivingPlant
+                                                                .firebaseFirestore!
+                                                                .collection(
+                                                                    "chats")
+                                                                .doc(tradeProvider
+                                                                    .getChatUid)
+                                                                .update({
+                                                                "TraderAskedStatus":
+                                                                    "Accepted"
+                                                              })
+                                                            : await LivingPlant
+                                                                .firebaseFirestore!
+                                                                .collection(
+                                                                    "chats")
+                                                                .doc(tradeProvider
+                                                                    .getChatUid)
+                                                                .update({
+                                                                "TraderAcceptingStatust":
+                                                                    "Accepted"
+                                                              });
+                                                        snapshot.data!.docs[
+                                                                        index][
+                                                                    'TraderAskedStatus'] ==
+                                                                "Accepted" &&
+                                                            snapshot.data!.docs[
+                                                                        index][
+                                                                    'TraderAcceptingStatust'] ==
+                                                                "Accepted";
                                                         print(snapshot.data!
                                                             .docs[index].id);
                                                         tradeProvider
@@ -616,40 +660,6 @@ class _PendingTrades extends State<PendingTrades> {
                                     ElevatedButton(
                                       onPressed: () {
                                         print(gettingUIdPlant);
-                                        // LivingPlant.firebaseFirestore!
-                                        //     .collection("plantsCollection")
-                                        //     .doc(snapshot
-                                        //         .data!
-                                        //         .docs[index][
-                                        //             'PlantPickedByWantingToGiveUID']
-                                        //         .toString())
-                                        //     .update({
-                                        //   "plantName": snapshot
-                                        //       .data!
-                                        //       .docs[index][
-                                        //           'PlantPickedByWantingToGiveName']
-                                        //       .toString(),
-                                        //   "plantUrl": snapshot
-                                        //       .data!
-                                        //       .docs[index][
-                                        //           'PlantPickedByWantingToGiveUrl']
-                                        //       .toString(),
-                                        //   "dateAdded": dateFromat.DateFormat(
-                                        //           'dd-MM-yyyy')
-                                        //       .format(DateTime.now()),
-                                        //   "plantDescription": "noDes",
-                                        //   "userUID": snapshot.data!
-                                        //       .docs[index]['TraderAcceptingUid']
-                                        //       .toString(),
-                                        //   "userFullName":
-                                        //       snapshot.data!.docs[index]
-                                        //           ['TraderAcceptingFullName'],
-                                        //   "location": snapshot.data!.docs[index]
-                                        //       [
-                                        //       'PlantPickedByWantingToGiveLocation'],
-                                        // });
-
-                                        //Trying Trade One
                                         LivingPlant.firebaseFirestore!
                                             .collection("chats")
                                             .doc(gettingUIdPlant)
@@ -663,44 +673,6 @@ class _PendingTrades extends State<PendingTrades> {
                                           "PlantPickedByWantingToGiveUID":
                                               plantPickedUID,
                                         });
-                                        // Navigator.of(context).push(
-                                        //   MaterialPageRoute(
-                                        //       builder: (_) => MyPlants()),
-                                        // );
-                                        print(gettingUIdPlant);
-
-                                        //Trying Trade One
-                                        // tradeProvider.updateTradeOneUid(
-                                        //     currentUserId.toString());
-
-                                        // tradeProvider
-                                        //     .updateTradeOnePlantImage(plantUrl);
-
-                                        // tradeProvider.updateTradeOneFirstName(
-                                        //     LivingPlant.sharedPreferences!
-                                        //         .getString(
-                                        //             LivingPlant.firstName)
-                                        //         .toString());
-
-                                        // tradeProvider.updateTradeOneLastName(
-                                        //     LivingPlant.sharedPreferences!
-                                        //         .getString(LivingPlant.lastName)
-                                        //         .toString());
-
-                                        // tradeProvider
-                                        //     .updateTradeOnePlantLocation(
-                                        //         locationTowTrade);
-
-                                        // tradeProvider.updateTradeOnePlantName(
-                                        //     plantNameTow);
-
-                                        // tradeProvider
-                                        //     .updateTradeOnePlantImage(plantUrl);
-
-                                        // Navigator.of(context).push(
-                                        //   MaterialPageRoute(
-                                        //       builder: (_) => MyPlants()),
-                                        // );
                                       },
                                       child: const Text(
                                         "Pick Plant",
