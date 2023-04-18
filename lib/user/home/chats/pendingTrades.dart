@@ -344,7 +344,34 @@ class _PendingTrades extends State<PendingTrades> {
                                                       'PlantPickedByWantingToGiveUID'] !=
                                                   ''
                                               ? Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
                                                   children: [
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        print(snapshot.data!
+                                                            .docs[index].id);
+                                                        tradeProvider
+                                                            .updateChatUid(
+                                                                snapshot
+                                                                    .data!
+                                                                    .docs[index]
+                                                                    .id);
+                                                        Navigator.of(context)
+                                                            .push(
+                                                          MaterialPageRoute(
+                                                            builder: (_) =>
+                                                                exisitingChat(),
+                                                          ),
+                                                        );
+                                                      },
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                              shape:
+                                                                  const StadiumBorder()),
+                                                      child: const Text("Chat"),
+                                                    ),
                                                     ElevatedButton(
                                                       onPressed: () async {
                                                         showDialog(
@@ -378,38 +405,6 @@ class _PendingTrades extends State<PendingTrades> {
                                                                 "TraderAcceptingStatust":
                                                                     "Accepted"
                                                               });
-                                                        snapshot.data!.docs[
-                                                                        index][
-                                                                    'TraderAskedStatus'] ==
-                                                                "Accepted" &&
-                                                            snapshot.data!.docs[
-                                                                        index][
-                                                                    'TraderAcceptingStatust'] ==
-                                                                "Accepted";
-                                                        print(snapshot.data!
-                                                            .docs[index].id);
-                                                        tradeProvider
-                                                            .updateChatUid(
-                                                                snapshot
-                                                                    .data!
-                                                                    .docs[index]
-                                                                    .id);
-                                                        Navigator.of(context)
-                                                            .push(
-                                                          MaterialPageRoute(
-                                                            builder: (_) =>
-                                                                exisitingChat(),
-                                                          ),
-                                                        );
-                                                      },
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                              shape:
-                                                                  const StadiumBorder()),
-                                                      child: const Text("Chat"),
-                                                    ),
-                                                    ElevatedButton(
-                                                      onPressed: () async {
                                                         if (snapshot.data!.docs[
                                                                         index][
                                                                     'TraderAskedStatus'] ==
@@ -523,9 +518,13 @@ class _PendingTrades extends State<PendingTrades> {
                                                         tradeProvider
                                                             .updateChatUid('');
                                                       },
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                              shape:
+                                                                  const StadiumBorder()),
                                                       child:
-                                                          Text("Confirm Trade"),
-                                                    )
+                                                          const Text("Trade!"),
+                                                    ),
                                                   ],
                                                 )
                                               : Container()
@@ -550,8 +549,6 @@ class _PendingTrades extends State<PendingTrades> {
 
   // This is to show the plants the user owns
   showingBottomToUp(gettingUIdPlant) {
-    var postProvider = Provider.of<postPageProvider>(context, listen: false);
-    var tradeProvider = Provider.of<traderProvider>(context, listen: false);
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
