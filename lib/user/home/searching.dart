@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:living_plant/config/config.dart';
@@ -6,6 +8,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:living_plant/user/home/myPlants.dart';
 import 'package:provider/provider.dart';
 
+import '../../providers/postPageProvider.dart';
 import '../../providers/searchProvider.dart';
 
 class searchingPage extends StatefulWidget {
@@ -42,7 +45,8 @@ class _searchingPageState extends State<searchingPage> {
 
   @override
   Widget build(BuildContext context) {
-    var searchprovider = Provider.of<searchProvider>(context, listen: true);
+    var searchprovider = Provider.of<SearchProvider>(context, listen: true);
+    var postProvider = Provider.of<postPageProvider>(context, listen: true);
 
     return DefaultTabController(
       length: 2,
@@ -293,8 +297,10 @@ class _searchingPageState extends State<searchingPage> {
                                     child: CircularProgressIndicator(),
                                   )
                                 : ListView.builder(
+                                    shrinkWrap: true,
                                     itemCount: snapshots.data!.docs.length,
-                                    itemBuilder: (BuildContext context, index) {
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
                                       var selectedUser = snapshots
                                           .data!.docs[index]['UserUid'];
                                       var data = snapshots.data!.docs[index]
@@ -306,10 +312,10 @@ class _searchingPageState extends State<searchingPage> {
                                               nameSearch.toLowerCase())) {
                                         return SizedBox(
                                           child: selectedUser != currentUser
-                                              ? ListTile(
+                                              ? GestureDetector(
                                                   onTap: () {
-                                                    searchprovider
-                                                        .updateUserSearchProfile(
+                                                    postProvider
+                                                        .updateUserProfile(
                                                             selectedUser);
                                                     Route route =
                                                         MaterialPageRoute(
@@ -317,33 +323,36 @@ class _searchingPageState extends State<searchingPage> {
                                                                 const MyPlants());
                                                     Navigator.push(
                                                         context, route);
+                                                    debugPrint(selectedUser);
                                                   },
-                                                  title: Text(
-                                                    data['firstName'],
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: const TextStyle(
-                                                        color: Colors.black54,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  subtitle: Text(
-                                                    data['email'],
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: const TextStyle(
-                                                        color: Colors.black54,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  leading: CircleAvatar(
-                                                    backgroundImage:
-                                                        NetworkImage(
-                                                            data['imageUrl']),
+                                                  child: ListTile(
+                                                    title: Text(
+                                                      data['firstName'],
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                          color: Colors.black54,
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    subtitle: Text(
+                                                      data['email'],
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                          color: Colors.black54,
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    leading: CircleAvatar(
+                                                      backgroundImage:
+                                                          NetworkImage(
+                                                              data['imageUrl']),
+                                                    ),
                                                   ),
                                                 )
                                               : Container(),

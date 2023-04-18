@@ -25,6 +25,9 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
+        ListenableProvider<SearchProvider>(
+          create: (_) => SearchProvider(),
+        ),
         ListenableProvider<postPageProvider>(
           create: (_) => postPageProvider(),
         ),
@@ -34,9 +37,7 @@ Future<void> main() async {
         ListenableProvider<traderProvider>(
           create: (_) => traderProvider(),
         ),
-        ListenableProvider<searchProvider>(
-          create: (_) => searchProvider(),
-        ),
+
         // ChangeNotifierProvider<traderProvider>(
         //   create: (_) => traderProvider(),
         // )
