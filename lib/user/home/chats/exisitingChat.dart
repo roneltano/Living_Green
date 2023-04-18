@@ -168,210 +168,219 @@ class _exisitingChat extends State<exisitingChat> {
                       child: CircularProgressIndicator(),
                     );
                   } else {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          padding: const EdgeInsets.only(
-                              right: 15, left: 15, top: 8, bottom: 5),
-                          child: Column(
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (BuildContext context, index) {
+                          return Column(
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    padding: const EdgeInsets.all(10),
-                                    width: 140,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          width: 130,
-                                          height: 100,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            child: Image.network(
-                                              snapshot
-                                                  .data!
-                                                  .docs[index]
-                                                      ['PlantPickedByTraderUrl']
-                                                  .toString(),
-                                              fit: BoxFit.fill,
+                              Flexible(
+                                fit: FlexFit.tight,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      padding: const EdgeInsets.all(10),
+                                      width: 140,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            width: 130,
+                                            height: 100,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              child: Image.network(
+                                                snapshot
+                                                    .data!
+                                                    .docs[index][
+                                                        'PlantPickedByTraderUrl']
+                                                    .toString(),
+                                                fit: BoxFit.fill,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Text(
-                                          snapshot
-                                              .data!
-                                              .docs[index]
-                                                  ['PlantPickedByTraderName']
-                                              .toString(),
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                        Text(
-                                          snapshot
-                                              .data!
-                                              .docs[index]
-                                                  ['TraderAskedFullName']
-                                              .toString(),
-                                          style: const TextStyle(fontSize: 12),
-                                        ),
-                                        Text(
-                                          snapshot
-                                              .data!
-                                              .docs[index][
-                                                  'PlantPickedByTraderLocation']
-                                              .toString(),
-                                          style: const TextStyle(
-                                            fontSize: 10,
-                                          ),
-                                        ),
-                                        Text(
-                                          snapshot.data!
-                                              .docs[index]['TraderAskedStatus']
-                                              .toString(),
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              color: snapshot.data!.docs[index][
-                                                          'TraderAskedStatus'] ==
-                                                      "Pending"
-                                                  ? Colors.red
-                                                  : Colors.green),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: SvgPicture.asset(
-                                      "images/2arrows.svg",
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    padding: const EdgeInsets.all(10),
-                                    width: 140,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        // Chekcing /////////////////////////////////////////////////////////////////////////
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          width: 130,
-                                          height: 100,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            child: Image.network(
-                                              snapshot
-                                                  .data!
-                                                  .docs[index][
-                                                      'PlantPickedByWantingToGiveUrl']
-                                                  .toString(),
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-                                          // This is for Picking Plant to choose
-                                        ),
-                                        Text(
-                                          snapshot
-                                              .data!
-                                              .docs[index][
-                                                  'PlantPickedByWantingToGiveName']
-                                              .toString(),
-                                          style: const TextStyle(
+                                          Text(
+                                            snapshot
+                                                .data!
+                                                .docs[index]
+                                                    ['PlantPickedByTraderName']
+                                                .toString(),
+                                            style: const TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 12),
-                                        ),
-                                        Text(
-                                          snapshot
-                                              .data!
-                                              .docs[index]
-                                                  ['TraderAcceptingFullName']
-                                              .toString(),
-                                          style: const TextStyle(
-                                            fontSize: 12,
+                                              fontSize: 12,
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          snapshot
-                                              .data!
-                                              .docs[index][
-                                                  'PlantPickedByWantingToGiveLocation']
-                                              .toString(),
-                                          style: const TextStyle(
-                                            fontSize: 10,
+                                          Text(
+                                            snapshot
+                                                .data!
+                                                .docs[index]
+                                                    ['TraderAskedFullName']
+                                                .toString(),
+                                            style:
+                                                const TextStyle(fontSize: 12),
                                           ),
-                                        ),
-                                        Text(
-                                          snapshot
-                                              .data!
-                                              .docs[index]
-                                                  ['TraderAcceptingStatust']
-                                              .toString(),
-                                          style: TextStyle(
+                                          Text(
+                                            snapshot
+                                                .data!
+                                                .docs[index][
+                                                    'PlantPickedByTraderLocation']
+                                                .toString(),
+                                            style: const TextStyle(
                                               fontSize: 10,
-                                              color: snapshot.data!.docs[index][
-                                                          'TraderAcceptingStatust'] ==
-                                                      "Pending"
-                                                  ? Colors.red
-                                                  : Colors.green),
-                                        ),
-                                      ],
+                                            ),
+                                          ),
+                                          Text(
+                                            snapshot
+                                                .data!
+                                                .docs[index]
+                                                    ['TraderAskedStatus']
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: snapshot.data!
+                                                                .docs[index][
+                                                            'TraderAskedStatus'] ==
+                                                        "Pending"
+                                                    ? Colors.red
+                                                    : Colors.green),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              ElevatedButton(
-                                onPressed: () async {
-                                  showDialog(
-                                    context: context,
-                                    builder: (_) => const loadingDialog(
-                                        message: "Trading Plant, Please wait"),
-                                  );
-                                  isSender(snapshot.data!.docs[index]
-                                          ['TraderAskedUid'])
-                                      ? await LivingPlant.firebaseFirestore!
-                                          .collection("chats")
-                                          .doc(tradeProvider.getChatUid)
-                                          .update(
-                                              {"TraderAskedStatus": "Accepted"})
-                                      : await LivingPlant.firebaseFirestore!
-                                          .collection("chats")
-                                          .doc(tradeProvider.getChatUid)
-                                          .update({
-                                          "TraderAcceptingStatust": "Accepted"
-                                        });
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  shape: const StadiumBorder(),
+                                    Expanded(
+                                      child: SvgPicture.asset(
+                                        "images/2arrows.svg",
+                                      ),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      padding: const EdgeInsets.all(10),
+                                      width: 140,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          // Chekcing /////////////////////////////////////////////////////////////////////////
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            width: 130,
+                                            height: 100,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              child: Image.network(
+                                                snapshot
+                                                    .data!
+                                                    .docs[index][
+                                                        'PlantPickedByWantingToGiveUrl']
+                                                    .toString(),
+                                                fit: BoxFit.fill,
+                                              ),
+                                            ),
+                                            // This is for Picking Plant to choose
+                                          ),
+                                          Text(
+                                            snapshot
+                                                .data!
+                                                .docs[index][
+                                                    'PlantPickedByWantingToGiveName']
+                                                .toString(),
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12),
+                                          ),
+                                          Text(
+                                            snapshot
+                                                .data!
+                                                .docs[index]
+                                                    ['TraderAcceptingFullName']
+                                                .toString(),
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                          Text(
+                                            snapshot
+                                                .data!
+                                                .docs[index][
+                                                    'PlantPickedByWantingToGiveLocation']
+                                                .toString(),
+                                            style: const TextStyle(
+                                              fontSize: 10,
+                                            ),
+                                          ),
+                                          Text(
+                                            snapshot
+                                                .data!
+                                                .docs[index]
+                                                    ['TraderAcceptingStatust']
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: snapshot.data!
+                                                                .docs[index][
+                                                            'TraderAcceptingStatust'] ==
+                                                        "Pending"
+                                                    ? Colors.red
+                                                    : Colors.green),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                child: const Text("Trade"),
+                              ),
+                              Flexible(
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    showDialog(
+                                      context: context,
+                                      builder: (_) => const loadingDialog(
+                                          message:
+                                              "Trading Plant, Please wait"),
+                                    );
+                                    isSender(snapshot.data!.docs[index]
+                                            ['TraderAskedUid'])
+                                        ? await LivingPlant.firebaseFirestore!
+                                            .collection("chats")
+                                            .doc(tradeProvider.getChatUid)
+                                            .update({
+                                            "TraderAskedStatus": "Accepted"
+                                          })
+                                        : await LivingPlant.firebaseFirestore!
+                                            .collection("chats")
+                                            .doc(tradeProvider.getChatUid)
+                                            .update({
+                                            "TraderAcceptingStatust": "Accepted"
+                                          });
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: const StadiumBorder(),
+                                  ),
+                                  child: const Text("Trade"),
+                                ),
                               ),
                               snapshot.data!.docs[index]['TraderAskedStatus'] ==
                                           "Accepted" &&
@@ -469,9 +478,9 @@ class _exisitingChat extends State<exisitingChat> {
                                   : Text("")
                               // : Text("")
                             ],
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     );
                   }
                 },
@@ -656,7 +665,6 @@ class _exisitingChat extends State<exisitingChat> {
                   ),
                 ),
               ),
-
               Container(
                 padding: const EdgeInsets.only(
                     right: 10, bottom: 2, top: 2, left: 10),
@@ -724,724 +732,13 @@ class _exisitingChat extends State<exisitingChat> {
                   ],
                 ),
               ),
-              // Expanded(
-              //   child: SingleChildScrollView(
-              //     child: Column(
-              //       children: [
-              //         StreamBuilder<QuerySnapshot>(
-              //           stream: LivingPlant.firebaseFirestore!
-              //               .collection("chats")
-              //               .doc(tradeProvider.getCommonID)
-              //               .collection('messages')
-              //               .orderBy('createdOn', descending: true)
-              //               .snapshots(),
-              //           builder: (BuildContext context,
-              //               AsyncSnapshot<QuerySnapshot> snapshot) {
-              //             if (snapshot.hasError) {
-              //               return const Center(
-              //                 child: Text("Something went wrong"),
-              //               );
-              //             }
-              //             if (snapshot.connectionState ==
-              //                 ConnectionState.waiting) {
-              //               return const Center(
-              //                 child: CircularProgressIndicator(),
-              //               );
-              //             }
-              //             if (snapshot.hasData) {
-              //               return Column(
-              //                 children: [
-              //                   ListView.builder(
-              //                     shrinkWrap: true,
-              //                     physics: const NeverScrollableScrollPhysics(),
-              //                     reverse: true,
-              //                     itemCount: snapshot.data!.docs.length,
-              //                     itemBuilder: (context, index) {
-              //                       var data = snapshot.data!.docs[index];
-              //                       String reciverUserImageProfile = snapshot
-              //                           .data!
-              //                           .docs[index]['ReceiverImageProfile'];
-              //                       String senderUserImageProfile = snapshot
-              //                           .data!.docs[index]['senderProfileImage'];
-              //                       return Column(
-              //                         children: [
-              //                           senderUserImageProfile.length > 5
-              //                               ? isSender(snapshot.data!.docs[index]
-              //                                       ['sender'])
-              //                                   ? Padding(
-              //                                       padding:
-              //                                           const EdgeInsets.all(5.0),
-              //                                       child: Column(
-              //                                         children: [
-              //                                           Row(
-              //                                             mainAxisAlignment:
-              //                                                 MainAxisAlignment
-              //                                                     .end,
-              //                                             crossAxisAlignment:
-              //                                                 CrossAxisAlignment
-              //                                                     .center,
-              //                                             children: [
-              //                                               Flexible(
-              //                                                 child: Container(
-              //                                                   padding:
-              //                                                       const EdgeInsets
-              //                                                           .all(10),
-              //                                                   decoration:
-              //                                                       BoxDecoration(
-              //                                                     color: Colors
-              //                                                         .white,
-              //                                                     borderRadius:
-              //                                                         BorderRadius
-              //                                                             .circular(
-              //                                                       20,
-              //                                                     ),
-              //                                                   ),
-              //                                                   child: Text(
-              //                                                     snapshot
-              //                                                         .data!
-              //                                                         .docs[index]
-              //                                                             ['msg']
-              //                                                         .toString(),
-              //                                                   ),
-              //                                                 ),
-              //                                               ),
-              //                                               const SizedBox(
-              //                                                 width: 10,
-              //                                               ),
-              //                                               CircleAvatar(
-              //                                                 backgroundColor:
-              //                                                     Colors.black12,
-              //                                                 backgroundImage:
-              //                                                     NetworkImage(
-              //                                                         senderUserImageProfile),
-              //                                                 radius: 23,
-              //                                               ),
-              //                                             ],
-              //                                           ),
-              //                                         ],
-              //                                       ),
-              //                                     )
-              //                                   : Padding(
-              //                                       padding:
-              //                                           const EdgeInsets.all(5.0),
-              //                                       child: Column(
-              //                                         children: [
-              //                                           Row(
-              //                                             mainAxisAlignment:
-              //                                                 MainAxisAlignment
-              //                                                     .start,
-              //                                             crossAxisAlignment:
-              //                                                 CrossAxisAlignment
-              //                                                     .center,
-              //                                             children: [
-              //                                               CircleAvatar(
-              //                                                 backgroundColor:
-              //                                                     Colors.black12,
-              //                                                 backgroundImage:
-              //                                                     NetworkImage(
-              //                                                         reciverUserImageProfile),
-              //                                                 radius: 23,
-              //                                               ),
-              //                                               const SizedBox(
-              //                                                 width: 10,
-              //                                               ),
-              //                                               Flexible(
-              //                                                 child: Container(
-              //                                                   padding:
-              //                                                       const EdgeInsets
-              //                                                           .all(10),
-              //                                                   decoration:
-              //                                                       BoxDecoration(
-              //                                                     color: Colors
-              //                                                         .white,
-              //                                                     borderRadius:
-              //                                                         BorderRadius
-              //                                                             .circular(
-              //                                                       20,
-              //                                                     ),
-              //                                                   ),
-              //                                                   child: Text(
-              //                                                     snapshot
-              //                                                         .data!
-              //                                                         .docs[index]
-              //                                                             ['msg']
-              //                                                         .toString(),
-              //                                                   ),
-              //                                                 ),
-              //                                               ),
-              //                                             ],
-              //                                           ),
-              //                                         ],
-              //                                       ),
-              //                                     )
-              //                               : const CircleAvatar(
-              //                                   backgroundColor: Colors.black12,
-              //                                   radius: 23,
-              //                                 ),
-              //                         ],
-              //                       );
-              //                     },
-              //                   ),
-              //                 ],
-              //               );
-              //             } else {
-              //               return Container();
-              //             }
-              //           },
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: [
-              //     Expanded(
-              //       child: Padding(
-              //         padding: const EdgeInsets.only(left: 18.0),
-              //         child: CupertinoTextField(
-              //           controller: _textController,
-              //         ),
-              //       ),
-              //     ),
-              //     CupertinoButton(
-              //       child: const Icon(Icons.send_sharp),
-              //       onPressed: () => sendMessage(_textController.text),
-              //     ),
-              //   ],
-              // ),
-              // Container(
-              //   padding:
-              //       const EdgeInsets.only(right: 10, bottom: 2, top: 2, left: 10),
-              //   decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(6), color: Colors.white),
-              //   height: 55,
-              //   child: Row(
-              //     children: [
-              //       Expanded(
-              //         flex: 6,
-              //         child: TextField(
-              //           controller: _textController,
-              //           obscureText: false,
-              //           cursorColor: LivingPlant.primaryColor,
-              //           keyboardType: TextInputType.text,
-              //           decoration: InputDecoration(
-              //             filled: true,
-              //             isCollapsed: true,
-              //             isDense: true,
-              //             suffixIconColor: LivingPlant.primaryColor,
-              //             suffixStyle:
-              //                 const TextStyle(color: LivingPlant.primaryColor),
-              //             border: OutlineInputBorder(
-              //               borderSide: const BorderSide(
-              //                 width: 1,
-              //                 color: LivingPlant.primaryColor,
-              //               ),
-              //               borderRadius: BorderRadius.circular(30),
-              //             ),
-              //             hintText: "hint",
-              //             focusedBorder: OutlineInputBorder(
-              //               borderSide: const BorderSide(
-              //                 width: 1,
-              //                 color: LivingPlant.primaryColor,
-              //               ),
-              //               borderRadius: BorderRadius.circular(30),
-              //             ),
-
-              //             contentPadding: const EdgeInsets.all(12), //
-              //           ),
-              //         ),
-              //       ),
-              //       Expanded(
-              //         flex: 1,
-              //         child: IconButton(
-              //           icon: SvgPicture.asset(
-              //             "images/send.svg",
-              //             height: 25,
-              //           ),
-              //           onPressed: () {
-              //             sendMessage(
-              //               _textController.text,
-              //             );
-              //           },
-              //         ),
-
-              //         // child: GestureDetector(
-              //         //   onTap: () {
-              //         //     sendMessage(_textController.text);
-              //         //   },
-              //         //   child: SvgPicture.asset("images/send.svg"),
-              //         // ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
             ],
           ),
         ),
       ),
-      // body: Container(
-      //   color: Colors.grey.shade200,
-      //   child: Column(
-      //     children: [
-      //       // Container(
-      //       //   padding:
-      //       //       const EdgeInsets.only(right: 15, left: 15, top: 8, bottom: 5),
-      //       //   child: Column(
-      //       //     children: [
-      //       //       Row(
-      //       //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //       //         children: [
-      //       //           Container(
-      //       //             decoration: BoxDecoration(
-      //       //               color: Colors.white,
-      //       //               borderRadius: BorderRadius.circular(10),
-      //       //             ),
-      //       //             padding: const EdgeInsets.all(10),
-      //       //             width: 140,
-      //       //             child: Column(
-      //       //               mainAxisAlignment: MainAxisAlignment.start,
-      //       //               crossAxisAlignment: CrossAxisAlignment.start,
-      //       //               children: [
-      //       //                 Container(
-      //       //                   decoration: BoxDecoration(
-      //       //                     borderRadius: BorderRadius.circular(10),
-      //       //                   ),
-      //       //                   width: 130,
-      //       //                   height: 100,
-      //       //                   child: ClipRRect(
-      //       //                     borderRadius: BorderRadius.circular(10.0),
-      //       //                     child: Image.network(
-      //       //                       tradeProvider.getTradeTowPlantImage
-      //       //                           .toString(),
-      //       //                       fit: BoxFit.fill,
-      //       //                     ),
-      //       //                   ),
-      //       //                 ),
-      //       //                 Text(
-      //       //                   tradeProvider.getTradeTowPlantName.toString(),
-      //       //                   style: const TextStyle(
-      //       //                       fontWeight: FontWeight.bold, fontSize: 12),
-      //       //                 ),
-      //       //                 Text(
-      //       //                   tradeProvider.getTradeTowFirstName.toString(),
-      //       //                   style: const TextStyle(
-      //       //                     fontSize: 12,
-      //       //                   ),
-      //       //                 ),
-      //       //                 Text(
-      //       //                   tradeProvider.getTradeTowPlantLocation.toString(),
-      //       //                   style: const TextStyle(
-      //       //                     fontSize: 10,
-      //       //                   ),
-      //       //                 ),
-      //       //               ],
-      //       //             ),
-      //       //           ),
-      //       //           // if (tradeProvider.getTradeStatus == "Pending")
-      //       //           Expanded(
-      //       //             // child: Text(
-      //       //             //   "Waiting for ${tradeProvider.getTradeTowFirstName} Acceptance!!!",
-      //       //             // ),
-      //       //             child: SvgPicture.asset(
-      //       //               "images/2arrows.svg",
-      //       //             ),
-      //       //           ),
-      //       //           // else
-      //       //           // Current User Trade
-      //       //           // Consumer<traderProvider>(
-      //       //           //   builder: (context, tradeProvider, child) =>
-      //       //           Container(
-      //       //             decoration: BoxDecoration(
-      //       //               color: Colors.white,
-      //       //               borderRadius: BorderRadius.circular(10),
-      //       //             ),
-      //       //             padding: const EdgeInsets.all(10),
-      //       //             width: 140,
-      //       //             child: Column(
-      //       //               mainAxisAlignment: MainAxisAlignment.start,
-      //       //               crossAxisAlignment: CrossAxisAlignment.start,
-      //       //               children: [
-      //       //                 // Chekcing /////////////////////////////////////////////////////////////////////////
-      //       //                 tradeProvider.getTradeOnePlantName != null
-      //       //                     ? GestureDetector(
-      //       //                         onTap: () {
-      //       //                           showingBottomToUp();
-      //       //                         },
-      //       //                         child: Container(
-      //       //                           decoration: BoxDecoration(
-      //       //                             borderRadius: BorderRadius.circular(10),
-      //       //                           ),
-      //       //                           width: 130,
-      //       //                           height: 100,
-      //       //                           child: ClipRRect(
-      //       //                             borderRadius:
-      //       //                                 BorderRadius.circular(10.0),
-      //       //                             child: Image.network(
-      //       //                               tradeProvider.getTradeOnePlantImage
-      //       //                                   .toString(),
-      //       //                               fit: BoxFit.fill,
-      //       //                             ),
-      //       //                           ),
-      //       //                           // This is for Picking Plant to choose
-      //       //                         ),
-      //       //                       )
-      //       //                     : Container(
-      //       //                         width: MediaQuery.of(context).size.width,
-      //       //                         padding: const EdgeInsets.all(10),
-      //       //                         height: 100,
-      //       //                         decoration: BoxDecoration(
-      //       //                             color: const Color(0XFFC4C4C4),
-      //       //                             borderRadius:
-      //       //                                 BorderRadius.circular(10)),
-      //       //                         child: Column(
-      //       //                           children: [
-      //       //                             const Icon(
-      //       //                               Icons.question_mark_outlined,
-      //       //                               size: 30,
-      //       //                             ),
-      //       //                             ElevatedButton(
-      //       //                               style: ButtonStyle(
-      //       //                                 backgroundColor:
-      //       //                                     MaterialStateProperty.all(
-      //       //                                   const Color(0XFFFFFFFF),
-      //       //                                 ),
-      //       //                                 padding: MaterialStateProperty.all(
-      //       //                                   const EdgeInsets.only(
-      //       //                                     top: 5,
-      //       //                                     bottom: 5,
-      //       //                                     left: 10,
-      //       //                                     right: 10,
-      //       //                                   ),
-      //       //                                 ),
-      //       //                                 shape: MaterialStateProperty.all(
-      //       //                                   RoundedRectangleBorder(
-      //       //                                     borderRadius:
-      //       //                                         BorderRadius.circular(
-      //       //                                       20.0,
-      //       //                                     ),
-      //       //                                   ),
-      //       //                                 ),
-      //       //                               ),
-      //       //                               onPressed: () {
-      //       //                                 showingBottomToUp();
-      //       //                               },
-      //       //                               child: const Text(
-      //       //                                 "Browse",
-      //       //                                 style:
-      //       //                                     TextStyle(color: Colors.black),
-      //       //                               ),
-      //       //                             ),
-      //       //                           ],
-      //       //                         ),
-      //       //                       ),
-      //       //                 Text(
-      //       //                   tradeProvider.getTradeOnePlantName.toString(),
-      //       //                   style: const TextStyle(
-      //       //                       fontWeight: FontWeight.bold, fontSize: 12),
-      //       //                 ),
-      //       //                 Text(
-      //       //                   tradeProvider.getTradeOneFirstName.toString(),
-      //       //                   style: const TextStyle(
-      //       //                     fontSize: 12,
-      //       //                   ),
-      //       //                 ),
-      //       //                 Text(
-      //       //                   tradeProvider.getTradeOnePlantLocation.toString(),
-      //       //                   style: const TextStyle(
-      //       //                     fontSize: 10,
-      //       //                   ),
-      //       //                 ),
-      //       //               ],
-      //       //             ),
-      //       //           ),
-      //       //         ],
-      //       //       ),
-      //       //       ElevatedButton(
-      //       //         onPressed: () {},
-      //       //         style:
-      //       //             ElevatedButton.styleFrom(shape: const StadiumBorder()),
-      //       //         child: const Text("Trade"),
-      //       //       ),
-      //       //     ],
-      //       //   ),
-      //       // ),
-      //       Expanded(
-      //         child: SingleChildScrollView(
-      //           child: Column(
-      //             children: [
-      //               StreamBuilder<QuerySnapshot>(
-      //                 stream: chats
-      //                     .doc(tradeProvider.getChatUid)
-      //                     .collection('messages')
-      //                     .orderBy('createdOn', descending: true)
-      //                     .snapshots(),
-      //                 builder: (BuildContext context,
-      //                     AsyncSnapshot<QuerySnapshot> snapshot) {
-      //                   if (snapshot.hasError) {
-      //                     return const Center(
-      //                       child: Text("Something went wrong"),
-      //                     );
-      //                   }
-      //                   if (snapshot.connectionState ==
-      //                       ConnectionState.waiting) {
-      //                     return const Center(
-      //                       child: CircularProgressIndicator(),
-      //                     );
-      //                   }
-      //                   if (snapshot.hasData) {
-      //                     return Column(
-      //                       children: [
-      //                         ListView.builder(
-      //                           shrinkWrap: true,
-      //                           physics: const NeverScrollableScrollPhysics(),
-      //                           reverse: true,
-      //                           itemCount: snapshot.data!.docs.length,
-      //                           itemBuilder: (context, index) {
-      //                             var data = snapshot.data!.docs[index];
-      //                             String reciverUserImageProfile = snapshot
-      //                                 .data!.docs[index]['ReceiverImageProfile']
-      //                                 .toString();
-      //                             String senderUserImageProfile = snapshot
-      //                                 .data!.docs[index]['senderProfileImage']
-      //                                 .toString();
-      //                             return Column(
-      //                               children: [
-      //                                 senderUserImageProfile.length > 5
-      //                                     ? isSender(snapshot.data!.docs[index]
-      //                                             ['sender'])
-      //                                         ? Padding(
-      //                                             padding:
-      //                                                 const EdgeInsets.all(5.0),
-      //                                             child: Column(
-      //                                               children: [
-      //                                                 Row(
-      //                                                   mainAxisAlignment:
-      //                                                       MainAxisAlignment
-      //                                                           .end,
-      //                                                   crossAxisAlignment:
-      //                                                       CrossAxisAlignment
-      //                                                           .center,
-      //                                                   children: [
-      //                                                     Flexible(
-      //                                                       child: Container(
-      //                                                         padding:
-      //                                                             const EdgeInsets
-      //                                                                 .all(10),
-      //                                                         decoration:
-      //                                                             BoxDecoration(
-      //                                                           color: Colors
-      //                                                               .white,
-      //                                                           borderRadius:
-      //                                                               BorderRadius
-      //                                                                   .circular(
-      //                                                             20,
-      //                                                           ),
-      //                                                         ),
-      //                                                         child: Text(
-      //                                                           snapshot
-      //                                                               .data!
-      //                                                               .docs[index]
-      //                                                                   ['msg']
-      //                                                               .toString(),
-      //                                                         ),
-      //                                                       ),
-      //                                                     ),
-      //                                                     const SizedBox(
-      //                                                       width: 10,
-      //                                                     ),
-      //                                                     CircleAvatar(
-      //                                                       backgroundColor:
-      //                                                           Colors.black12,
-      //                                                       backgroundImage:
-      //                                                           NetworkImage(
-      //                                                               senderUserImageProfile),
-      //                                                       radius: 23,
-      //                                                     ),
-      //                                                   ],
-      //                                                 ),
-      //                                               ],
-      //                                             ),
-      //                                           )
-      //                                         : Padding(
-      //                                             padding:
-      //                                                 const EdgeInsets.all(5.0),
-      //                                             child: Column(
-      //                                               children: [
-      //                                                 Row(
-      //                                                   mainAxisAlignment:
-      //                                                       MainAxisAlignment
-      //                                                           .start,
-      //                                                   crossAxisAlignment:
-      //                                                       CrossAxisAlignment
-      //                                                           .center,
-      //                                                   children: [
-      //                                                     CircleAvatar(
-      //                                                       backgroundColor:
-      //                                                           Colors.black12,
-      //                                                       backgroundImage:
-      //                                                           NetworkImage(
-      //                                                               senderUserImageProfile),
-      //                                                       radius: 23,
-      //                                                     ),
-      //                                                     const SizedBox(
-      //                                                       width: 10,
-      //                                                     ),
-      //                                                     Flexible(
-      //                                                       child: Container(
-      //                                                         padding:
-      //                                                             const EdgeInsets
-      //                                                                 .all(10),
-      //                                                         decoration:
-      //                                                             BoxDecoration(
-      //                                                           color: Colors
-      //                                                               .white,
-      //                                                           borderRadius:
-      //                                                               BorderRadius
-      //                                                                   .circular(
-      //                                                             20,
-      //                                                           ),
-      //                                                         ),
-      //                                                         child: Text(
-      //                                                           snapshot.data!
-      //                                                                   .docs[
-      //                                                               index]['msg'],
-      //                                                         ),
-      //                                                       ),
-      //                                                     ),
-      //                                                   ],
-      //                                                 ),
-      //                                               ],
-      //                                             ),
-      //                                           )
-      //                                     : const CircleAvatar(
-      //                                         backgroundColor: Colors.black12,
-      //                                         radius: 23,
-      //                                       ),
-      //                               ],
-      //                             );
-      //                           },
-      //                         ),
-      //                       ],
-      //                     );
-      //                   } else {
-      //                     return Container();
-      //                   }
-      //                 },
-      //               ),
-      //             ],
-      //           ),
-      //         ),
-      //       ),
-      //       // Row(
-      //       //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //       //   children: [
-      //       //     Expanded(
-      //       //       child: Padding(
-      //       //         padding: const EdgeInsets.only(left: 18.0),
-      //       //         child: CupertinoTextField(
-      //       //           controller: _textController,
-      //       //         ),
-      //       //       ),
-      //       //     ),
-      //       //     CupertinoButton(
-      //       //       child: const Icon(Icons.send_sharp),
-      //       //       onPressed: () => sendMessage(_textController.text),
-      //       //     ),
-      //       //   ],
-      //       // ),
-      //       Container(
-      //         padding:
-      //             const EdgeInsets.only(right: 10, bottom: 2, top: 2, left: 10),
-      //         decoration: BoxDecoration(
-      //             borderRadius: BorderRadius.circular(6), color: Colors.white),
-      //         height: 55,
-      //         child: Row(
-      //           children: [
-      //             Expanded(
-      //               flex: 6,
-      //               child: TextField(
-      //                 controller: _textController,
-      //                 obscureText: false,
-      //                 cursorColor: LivingPlant.primaryColor,
-      //                 keyboardType: TextInputType.text,
-      //                 decoration: InputDecoration(
-      //                   filled: true,
-      //                   isCollapsed: true,
-      //                   isDense: true,
-      //                   suffixIconColor: LivingPlant.primaryColor,
-      //                   suffixStyle:
-      //                       const TextStyle(color: LivingPlant.primaryColor),
-      //                   border: OutlineInputBorder(
-      //                     borderSide: const BorderSide(
-      //                       width: 1,
-      //                       color: LivingPlant.primaryColor,
-      //                     ),
-      //                     borderRadius: BorderRadius.circular(30),
-      //                   ),
-      //                   hintText: "hint",
-      //                   focusedBorder: OutlineInputBorder(
-      //                     borderSide: const BorderSide(
-      //                       width: 1,
-      //                       color: LivingPlant.primaryColor,
-      //                     ),
-      //                     borderRadius: BorderRadius.circular(30),
-      //                   ),
-
-      //                   contentPadding: const EdgeInsets.all(12), //
-      //                 ),
-      //               ),
-      //             ),
-      //             Expanded(
-      //               flex: 1,
-      //               child: IconButton(
-      //                 icon: SvgPicture.asset(
-      //                   "images/send.svg",
-      //                   height: 25,
-      //                 ),
-      //                 onPressed: () {
-      //                   sendMessage(
-      //                     _textController.text,
-      //                   );
-      //                 },
-      //               ),
-
-      //               // child: GestureDetector(
-      //               //   onTap: () {
-      //               //     sendMessage(_textController.text);
-      //               //   },
-      //               //   child: SvgPicture.asset("images/send.svg"),
-      //               // ),
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 
-  // Future savingImageToDatabase() async {
-  //   var tradeProvider = Provider.of<traderProvider>(context, listen: true);
-
-  //   LivingPlant.firebaseFirestore!
-  //       .collection("chats")
-  //       .doc(chatDocId)
-  //       .collection("messages")
-  //       .add(
-  //     {
-  //       'createdOn': FieldValue.serverTimestamp(),
-  //       'uid': currentUserId,
-  //       'tradeNumberTow': tradeProvider.getTradeTowFirstName,
-  //       'msg': _textController.text.trim(),
-  //       'sentBy':
-  //           LivingPlant.sharedPreferences!.getString(LivingPlant.firstName),
-  //     },
-  //   );
-  // }
-
-  // This is to show the plants the user owns
   showingBottomToUp() {
     var postProvider = Provider.of<postPageProvider>(context, listen: false);
     var tradeProvider = Provider.of<traderProvider>(context, listen: false);
