@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class searchProvider with ChangeNotifier {
+class SearchProvider with ChangeNotifier {
   // For Posting
 
   String? _userSearchProfile;
@@ -9,6 +9,7 @@ class searchProvider with ChangeNotifier {
 
   updateUserSearchProfile(String userSearchProfile) {
     _userSearchProfile = userSearchProfile;
+    debugPrint(_userSearchProfile);
     notifyListeners();
   }
 }

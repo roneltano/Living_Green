@@ -145,6 +145,8 @@ class _HomePage extends State<HomePage> {
                                                                       const MyPlants());
                                                           Navigator.push(
                                                               context, route);
+                                                          debugPrint(
+                                                              'posted by: $postedBy');
                                                         },
                                                         child: imageGetting!
                                                                     .length >
