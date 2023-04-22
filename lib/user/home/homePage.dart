@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -310,7 +311,8 @@ class _HomePage extends State<HomePage> {
                                         const SizedBox(
                                           height: 7,
                                         ),
-                                        Image.network(netwrokImage ?? ""),
+                                        CachedNetworkImage(
+                                            imageUrl: netwrokImage),
                                         const SizedBox(
                                           height: 15,
                                         ),

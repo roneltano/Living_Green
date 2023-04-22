@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -130,13 +131,13 @@ class _PendingTrades extends State<PendingTrades> {
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(10.0),
-                                                        child: Image.network(
-                                                          snapshot
+                                                        child:
+                                                            CachedNetworkImage(
+                                                          imageUrl: snapshot
                                                               .data!
                                                               .docs[index][
                                                                   'PlantPickedByTraderUrl']
                                                               .toString(),
-                                                          fit: BoxFit.fill,
                                                         ),
                                                       ),
                                                     ),
@@ -221,18 +222,14 @@ class _PendingTrades extends State<PendingTrades> {
                                                                     BorderRadius
                                                                         .circular(
                                                                             10.0),
-                                                                child: Image
-                                                                    .network(
-                                                                  snapshot
-                                                                      .data!
-                                                                      .docs[
-                                                                          index]
-                                                                          [
-                                                                          'PlantPickedByWantingToGiveUrl']
-                                                                      .toString(),
-                                                                  fit: BoxFit
-                                                                      .fill,
-                                                                ),
+                                                                child: CachedNetworkImage(
+                                                                    imageUrl: snapshot
+                                                                        .data!
+                                                                        .docs[
+                                                                            index]
+                                                                            [
+                                                                            'PlantPickedByWantingToGiveUrl']
+                                                                        .toString()),
                                                               ),
                                                               // This is for Picking Plant to choose
                                                             ),

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:living_plant/config/config.dart';
+import 'package:living_plant/providers/NotificationProvider.dart';
 import 'package:living_plant/providers/imageRecogntionProvider.dart';
 import 'package:living_plant/providers/postPageProvider.dart';
 import 'package:living_plant/providers/searchProvider.dart';
@@ -37,6 +38,7 @@ Future<void> main() async {
         ListenableProvider<traderProvider>(
           create: (_) => traderProvider(),
         ),
+        ChangeNotifierProvider(create: (_) => NotificationProvider())
 
         // ChangeNotifierProvider<traderProvider>(
         //   create: (_) => traderProvider(),

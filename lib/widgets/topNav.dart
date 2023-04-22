@@ -1,13 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:living_plant/config/config.dart';
 import 'package:living_plant/user/home/PlantRecognitions/bottomAndUp.dart';
+import 'package:living_plant/user/home/notificationPage.dart';
 import 'package:living_plant/user/home/searching.dart';
+
+enum SampleItem { itemOne, itemTwo, itemThree }
 
 class TopNav extends StatelessWidget {
   const TopNav({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final currentUserId = LivingPlant.firebaseAuth!.currentUser?.uid;
+    bool isSender(String friend) {
+      return friend == currentUserId;
+    }
+
     String imageGetting =
         LivingPlant.sharedPreferences!.getString(LivingPlant.image) ?? "";
     var firstName =
@@ -167,13 +176,23 @@ class TopNav extends StatelessWidget {
                                   color: Colors.white,
                                 ),
                                 const SizedBox(
+                                  width: 12,
+                                ),
+                                const SizedBox(
                                   width: 5,
                                 ),
-                                // const Icon(
-                                //   Icons.notifications_active,
-                                //   color: Colors.white,
-                                //   size: 28,
-                                // ),
+                                IconButton(
+                                  padding: const EdgeInsets.all(0),
+                                  constraints: const BoxConstraints(),
+                                  onPressed: () {
+                                    goingToNotifications(context);
+                                  },
+                                  icon: const Icon(
+                                    Icons.notifications,
+                                    size: 28,
+                                  ),
+                                  color: Colors.white,
+                                )
                               ],
                             ),
                           ],
@@ -192,6 +211,11 @@ class TopNav extends StatelessWidget {
 
   goingToUploadImage(BuildContext context) {
     Route route = MaterialPageRoute(builder: (_) => const bottomAndUp());
+    Navigator.push(context, route);
+  }
+
+  goingToNotifications(BuildContext context) {
+    Route route = MaterialPageRoute(builder: (_) => NotificationPage());
     Navigator.push(context, route);
   }
 }
