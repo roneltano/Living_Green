@@ -37,25 +37,7 @@ class _TopNavState extends State<TopNav> {
         .collection('chats')
         .where('TradeStatus', isEqualTo: 'Pending')
         .where('TraderAcceptingUid', isEqualTo: currentUserId)
-        .where('Read', isEqualTo: false)
         .count()
-        .get();
-
-    Future quiriedDocs = LivingPlant.firebaseFirestore!
-        .collection('chats')
-        .where('TradeStatus', isEqualTo: 'Pending')
-        .where('TraderAcceptingUid', isEqualTo: currentUserId)
-        .where('Read', isEqualTo: false)
-        .get();
-
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-    WriteBatch batch = firestore.batch();
-
-    Future<QuerySnapshot<Map<String, dynamic>>> userNotif = firestore
-        .collection('chats')
-        .where('TradeStatus', isEqualTo: 'Pending')
-        .where('TraderAcceptingUid', isEqualTo: currentUserId)
-        .where('Read', isEqualTo: false)
         .get();
 
     String imageGetting =
