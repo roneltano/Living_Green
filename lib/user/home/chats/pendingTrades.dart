@@ -77,6 +77,7 @@ class _PendingTrades extends State<PendingTrades> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: snapshot.data!.docs.length,
                             itemBuilder: (context, index) {
+                              final document = snapshot.data!.docs[index];
                               String TraderAskedUid =
                                   snapshot.data!.docs[index]['TraderAskedUid'];
                               String gettingUIdPlant =
@@ -87,373 +88,356 @@ class _PendingTrades extends State<PendingTrades> {
                                       snapshot.data!.docs[index]
                                               ['TraderAcceptingUid'] ==
                                           currentUserId
-                                  ? Container(
-                                      margin: const EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: Colors.grey.shade200,
+                                  ? Dismissible(
+                                      background: Container(
+                                        color: Colors.red,
+                                        child: const Icon(Icons.delete_forever),
                                       ),
-                                      padding: const EdgeInsets.only(
-                                          right: 15,
-                                          left: 15,
-                                          top: 8,
-                                          bottom: 5),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                width: 140,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                      ),
-                                                      width: 130,
-                                                      height: 100,
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10.0),
-                                                        child:
-                                                            CachedNetworkImage(
-                                                          imageUrl: snapshot
-                                                              .data!
-                                                              .docs[index][
-                                                                  'PlantPickedByTraderUrl']
-                                                              .toString(),
+                                      key: Key(document.id),
+                                      onDismissed: (direction) {
+                                        LivingPlant.firebaseFirestore
+                                            ?.collection('chats')
+                                            .doc(document.id)
+                                            .delete();
+                                      },
+                                      child: Container(
+                                        margin: const EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          color: Colors.grey.shade200,
+                                        ),
+                                        padding: const EdgeInsets.only(
+                                            right: 15,
+                                            left: 15,
+                                            top: 8,
+                                            bottom: 5),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  padding:
+                                                      const EdgeInsets.all(10),
+                                                  width: 140,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
                                                         ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      snapshot
-                                                          .data!
-                                                          .docs[index][
-                                                              'PlantPickedByTraderName']
-                                                          .toString(),
-                                                      style: const TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    Text(
-                                                      snapshot
-                                                          .data!
-                                                          .docs[index][
-                                                              'TraderAskedFullName']
-                                                          .toString(),
-                                                      style: const TextStyle(
-                                                        fontSize: 12,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      snapshot
-                                                          .data!
-                                                          .docs[index][
-                                                              'PlantPickedByTraderLocation']
-                                                          .toString(),
-                                                      style: const TextStyle(
-                                                        fontSize: 10,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: SvgPicture.asset(
-                                                  "images/2arrows.svg",
-                                                ),
-                                              ),
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                width: 140,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    // Chekcing /////////////////////////////////////////////////////////////////////////
-                                                    snapshot.data!.docs[index][
-                                                                'PlantPickedByWantingToGiveUID'] !=
-                                                            ''
-                                                        ? GestureDetector(
-                                                            onTap: () {
-                                                              if (TraderAskedUid ==
-                                                                  currentUserId) {
-                                                                showingBottomToUp(
-                                                                    gettingUIdPlant);
-                                                              }
-                                                            },
-                                                            child: Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
-                                                              ),
-                                                              width: 130,
-                                                              height: 100,
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                                child: CachedNetworkImage(
-                                                                    imageUrl: snapshot
-                                                                        .data!
-                                                                        .docs[
-                                                                            index]
-                                                                            [
-                                                                            'PlantPickedByWantingToGiveUrl']
-                                                                        .toString()),
-                                                              ),
-                                                              // This is for Picking Plant to choose
-                                                            ),
-                                                          )
-                                                        : Container(
-                                                            width:
-                                                                MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width,
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(10),
-                                                            height: 100,
-                                                            decoration: BoxDecoration(
-                                                                color: const Color(
-                                                                    0XFFC4C4C4),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10)),
-                                                            child: Column(
-                                                              children: [
-                                                                const Icon(
-                                                                  Icons
-                                                                      .question_mark_outlined,
-                                                                  size: 30,
-                                                                ),
-                                                                TraderAskedUid ==
-                                                                        currentUserId
-                                                                    ? ElevatedButton(
-                                                                        style:
-                                                                            ButtonStyle(
-                                                                          backgroundColor:
-                                                                              MaterialStateProperty.all(
-                                                                            const Color(0XFFFFFFFF),
-                                                                          ),
-                                                                          padding:
-                                                                              MaterialStateProperty.all(
-                                                                            const EdgeInsets.only(
-                                                                              top: 5,
-                                                                              bottom: 5,
-                                                                              left: 10,
-                                                                              right: 10,
-                                                                            ),
-                                                                          ),
-                                                                          shape:
-                                                                              MaterialStateProperty.all(
-                                                                            RoundedRectangleBorder(
-                                                                              borderRadius: BorderRadius.circular(
-                                                                                20.0,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        onPressed:
-                                                                            () {
-                                                                          showingBottomToUp(
-                                                                              gettingUIdPlant);
-                                                                        },
-                                                                        child:
-                                                                            const Text(
-                                                                          "Browse",
-                                                                          style:
-                                                                              TextStyle(color: Colors.black),
-                                                                        ),
-                                                                      )
-                                                                    : Container()
-                                                              ],
-                                                            ),
-                                                          ),
-                                                    Text(
-                                                      snapshot
-                                                          .data!
-                                                          .docs[index][
-                                                              'PlantPickedByWantingToGiveName']
-                                                          .toString(),
-                                                      style: const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 12),
-                                                    ),
-                                                    Text(
-                                                      snapshot
-                                                          .data!
-                                                          .docs[index][
-                                                              'TraderAcceptingFullName']
-                                                          .toString(),
-                                                      style: const TextStyle(
-                                                        fontSize: 12,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      snapshot
-                                                          .data!
-                                                          .docs[index][
-                                                              'PlantPickedByWantingToGiveLocation']
-                                                          .toString(),
-                                                      style: const TextStyle(
-                                                        fontSize: 10,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          snapshot.data!.docs[index][
-                                                      'PlantPickedByWantingToGiveUID'] !=
-                                                  ''
-                                              ? Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  children: [
-                                                    ElevatedButton(
-                                                      onPressed: () {
-                                                        print(snapshot.data!
-                                                            .docs[index].id);
-                                                        tradeProvider
-                                                            .updateChatUid(
-                                                                snapshot
-                                                                    .data!
-                                                                    .docs[index]
-                                                                    .id);
-                                                        Navigator.of(context)
-                                                            .push(
-                                                          MaterialPageRoute(
-                                                            builder: (_) =>
-                                                                exisitingChat(),
-                                                          ),
-                                                        );
-                                                      },
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                              shape:
-                                                                  const StadiumBorder()),
-                                                      child: const Text("Chat"),
-                                                    ),
-                                                    ElevatedButton(
-                                                      onPressed: () async {
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (_) =>
-                                                              const loadingDialog(
-                                                                  message:
-                                                                      "Trading Plant, Please wait"),
-                                                        );
-                                                        isSender(snapshot.data!
-                                                                    .docs[index]
-                                                                [
-                                                                'TraderAskedUid'])
-                                                            ? await LivingPlant
-                                                                .firebaseFirestore!
-                                                                .collection(
-                                                                    "chats")
-                                                                .doc(tradeProvider
-                                                                    .getChatUid)
-                                                                .update({
-                                                                "TraderAskedStatus":
-                                                                    "Accepted"
-                                                              })
-                                                            : await LivingPlant
-                                                                .firebaseFirestore!
-                                                                .collection(
-                                                                    "chats")
-                                                                .doc(tradeProvider
-                                                                    .getChatUid)
-                                                                .update({
-                                                                "TraderAcceptingStatust":
-                                                                    "Accepted"
-                                                              });
-                                                        if (snapshot.data!.docs[
-                                                                        index][
-                                                                    'TraderAskedStatus'] ==
-                                                                "Accepted" &&
-                                                            snapshot.data!.docs[
-                                                                        index][
-                                                                    'TraderAcceptingStatust'] ==
-                                                                "Accepted") {
-                                                          await LivingPlant
-                                                              .firebaseFirestore!
-                                                              .collection(
-                                                                  "plantsCollection")
-                                                              .doc(snapshot
-                                                                  .data!
-                                                                  .docs[index][
-                                                                      'PlantAskedUid']
-                                                                  .toString())
-                                                              .update({
-                                                            "plantName": snapshot
-                                                                .data!
-                                                                .docs[index][
-                                                                    'PlantPickedByTraderName']
-                                                                .toString(),
-                                                            "plantUrl": snapshot
+                                                        width: 130,
+                                                        height: 100,
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                          child:
+                                                              CachedNetworkImage(
+                                                            imageUrl: snapshot
                                                                 .data!
                                                                 .docs[index][
                                                                     'PlantPickedByTraderUrl']
                                                                 .toString(),
-                                                            "dateAdded": dateFromat
-                                                                    .DateFormat(
-                                                                        'dd-MM-yyyy')
-                                                                .format(DateTime
-                                                                    .now()),
-                                                            "plantDescription":
-                                                                "noDes",
-                                                            "userUID": snapshot
-                                                                .data!
-                                                                .docs[index][
-                                                                    'TraderAskedUid']
-                                                                .toString(),
-                                                            "userFullName": snapshot
-                                                                    .data!
-                                                                    .docs[index]
-                                                                [
-                                                                'TraderAskedFullName'],
-                                                            "location": snapshot
-                                                                    .data!
-                                                                    .docs[index]
-                                                                [
-                                                                'PlantPickedByTraderLocation'],
-                                                          }).then((value) async {
-                                                            ////////////////////////// Second Trader //////////////////////////////////////
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        snapshot
+                                                            .data!
+                                                            .docs[index][
+                                                                'PlantPickedByTraderName']
+                                                            .toString(),
+                                                        style: const TextStyle(
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      Text(
+                                                        snapshot
+                                                            .data!
+                                                            .docs[index][
+                                                                'TraderAskedFullName']
+                                                            .toString(),
+                                                        style: const TextStyle(
+                                                          fontSize: 12,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        snapshot
+                                                            .data!
+                                                            .docs[index][
+                                                                'PlantPickedByTraderLocation']
+                                                            .toString(),
+                                                        style: const TextStyle(
+                                                          fontSize: 10,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: SvgPicture.asset(
+                                                    "images/2arrows.svg",
+                                                  ),
+                                                ),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  padding:
+                                                      const EdgeInsets.all(10),
+                                                  width: 140,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      // Chekcing /////////////////////////////////////////////////////////////////////////
+                                                      snapshot.data!.docs[index]
+                                                                  [
+                                                                  'PlantPickedByWantingToGiveUID'] !=
+                                                              ''
+                                                          ? GestureDetector(
+                                                              onTap: () {
+                                                                if (TraderAskedUid ==
+                                                                    currentUserId) {
+                                                                  showingBottomToUp(
+                                                                      gettingUIdPlant);
+                                                                }
+                                                              },
+                                                              child: Container(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                ),
+                                                                width: 130,
+                                                                height: 100,
+                                                                child:
+                                                                    ClipRRect(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10.0),
+                                                                  child: CachedNetworkImage(
+                                                                      imageUrl: snapshot
+                                                                          .data!
+                                                                          .docs[
+                                                                              index]
+                                                                              [
+                                                                              'PlantPickedByWantingToGiveUrl']
+                                                                          .toString()),
+                                                                ),
+                                                                // This is for Picking Plant to choose
+                                                              ),
+                                                            )
+                                                          : Container(
+                                                              width:
+                                                                  MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width,
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(10),
+                                                              height: 100,
+                                                              decoration: BoxDecoration(
+                                                                  color: const Color(
+                                                                      0XFFC4C4C4),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10)),
+                                                              child: Column(
+                                                                children: [
+                                                                  const Icon(
+                                                                    Icons
+                                                                        .question_mark_outlined,
+                                                                    size: 30,
+                                                                  ),
+                                                                  TraderAskedUid ==
+                                                                          currentUserId
+                                                                      ? ElevatedButton(
+                                                                          style:
+                                                                              ButtonStyle(
+                                                                            backgroundColor:
+                                                                                MaterialStateProperty.all(
+                                                                              const Color(0XFFFFFFFF),
+                                                                            ),
+                                                                            padding:
+                                                                                MaterialStateProperty.all(
+                                                                              const EdgeInsets.only(
+                                                                                top: 5,
+                                                                                bottom: 5,
+                                                                                left: 10,
+                                                                                right: 10,
+                                                                              ),
+                                                                            ),
+                                                                            shape:
+                                                                                MaterialStateProperty.all(
+                                                                              RoundedRectangleBorder(
+                                                                                borderRadius: BorderRadius.circular(
+                                                                                  20.0,
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          onPressed:
+                                                                              () {
+                                                                            showingBottomToUp(gettingUIdPlant);
+                                                                          },
+                                                                          child:
+                                                                              const Text(
+                                                                            "Browse",
+                                                                            style:
+                                                                                TextStyle(color: Colors.black),
+                                                                          ),
+                                                                        )
+                                                                      : Container()
+                                                                ],
+                                                              ),
+                                                            ),
+                                                      Text(
+                                                        snapshot
+                                                            .data!
+                                                            .docs[index][
+                                                                'PlantPickedByWantingToGiveName']
+                                                            .toString(),
+                                                        style: const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 12),
+                                                      ),
+                                                      Text(
+                                                        snapshot
+                                                            .data!
+                                                            .docs[index][
+                                                                'TraderAcceptingFullName']
+                                                            .toString(),
+                                                        style: const TextStyle(
+                                                          fontSize: 12,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        snapshot
+                                                            .data!
+                                                            .docs[index][
+                                                                'PlantPickedByWantingToGiveLocation']
+                                                            .toString(),
+                                                        style: const TextStyle(
+                                                          fontSize: 10,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            snapshot.data!.docs[index][
+                                                        'PlantPickedByWantingToGiveUID'] !=
+                                                    ''
+                                                ? Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: [
+                                                      ElevatedButton(
+                                                        onPressed: () {
+                                                          print(snapshot.data!
+                                                              .docs[index].id);
+                                                          tradeProvider
+                                                              .updateChatUid(
+                                                                  snapshot
+                                                                      .data!
+                                                                      .docs[
+                                                                          index]
+                                                                      .id);
+                                                          Navigator.of(context)
+                                                              .push(
+                                                            MaterialPageRoute(
+                                                              builder: (_) =>
+                                                                  exisitingChat(),
+                                                            ),
+                                                          );
+                                                        },
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                                shape:
+                                                                    const StadiumBorder()),
+                                                        child:
+                                                            const Text("Chat"),
+                                                      ),
+                                                      ElevatedButton(
+                                                        onPressed: () async {
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (_) =>
+                                                                const loadingDialog(
+                                                                    message:
+                                                                        "Trading Plant, Please wait"),
+                                                          );
+                                                          isSender(snapshot
+                                                                          .data!
+                                                                          .docs[
+                                                                      index]
+                                                                  [
+                                                                  'TraderAskedUid'])
+                                                              ? await LivingPlant
+                                                                  .firebaseFirestore!
+                                                                  .collection(
+                                                                      "chats")
+                                                                  .doc(tradeProvider
+                                                                      .getChatUid)
+                                                                  .update({
+                                                                  "TraderAskedStatus":
+                                                                      "Accepted"
+                                                                })
+                                                              : await LivingPlant
+                                                                  .firebaseFirestore!
+                                                                  .collection(
+                                                                      "chats")
+                                                                  .doc(tradeProvider
+                                                                      .getChatUid)
+                                                                  .update({
+                                                                  "TraderAcceptingStatust":
+                                                                      "Accepted"
+                                                                });
+                                                          if (snapshot.data!.docs[
+                                                                          index]
+                                                                      [
+                                                                      'TraderAskedStatus'] ==
+                                                                  "Accepted" &&
+                                                              snapshot.data!.docs[
+                                                                          index]
+                                                                      [
+                                                                      'TraderAcceptingStatust'] ==
+                                                                  "Accepted") {
                                                             await LivingPlant
                                                                 .firebaseFirestore!
                                                                 .collection(
@@ -462,18 +446,18 @@ class _PendingTrades extends State<PendingTrades> {
                                                                     .data!
                                                                     .docs[index]
                                                                         [
-                                                                        'PlantPickedByWantingToGiveUID']
+                                                                        'PlantAskedUid']
                                                                     .toString())
                                                                 .update({
                                                               "plantName": snapshot
                                                                   .data!
                                                                   .docs[index][
-                                                                      'PlantPickedByWantingToGiveName']
+                                                                      'PlantPickedByTraderName']
                                                                   .toString(),
                                                               "plantUrl": snapshot
                                                                   .data!
                                                                   .docs[index][
-                                                                      'PlantPickedByWantingToGiveUrl']
+                                                                      'PlantPickedByTraderUrl']
                                                                   .toString(),
                                                               "dateAdded": dateFromat
                                                                       .DateFormat(
@@ -485,46 +469,98 @@ class _PendingTrades extends State<PendingTrades> {
                                                               "userUID": snapshot
                                                                   .data!
                                                                   .docs[index][
-                                                                      'TraderAcceptingUid']
+                                                                      'TraderAskedUid']
                                                                   .toString(),
                                                               "userFullName": snapshot
                                                                           .data!
                                                                           .docs[
                                                                       index][
-                                                                  'TraderAcceptingFullName'],
+                                                                  'TraderAskedFullName'],
                                                               "location": snapshot
                                                                           .data!
                                                                           .docs[
                                                                       index][
-                                                                  'PlantPickedByWantingToGiveLocation'],
+                                                                  'PlantPickedByTraderLocation'],
+                                                            }).then((value) async {
+                                                              ////////////////////////// Second Trader //////////////////////////////////////
+                                                              await LivingPlant
+                                                                  .firebaseFirestore!
+                                                                  .collection(
+                                                                      "plantsCollection")
+                                                                  .doc(snapshot
+                                                                      .data!
+                                                                      .docs[
+                                                                          index]
+                                                                          [
+                                                                          'PlantPickedByWantingToGiveUID']
+                                                                      .toString())
+                                                                  .update({
+                                                                "plantName": snapshot
+                                                                    .data!
+                                                                    .docs[index]
+                                                                        [
+                                                                        'PlantPickedByWantingToGiveName']
+                                                                    .toString(),
+                                                                "plantUrl": snapshot
+                                                                    .data!
+                                                                    .docs[index]
+                                                                        [
+                                                                        'PlantPickedByWantingToGiveUrl']
+                                                                    .toString(),
+                                                                "dateAdded": dateFromat
+                                                                        .DateFormat(
+                                                                            'dd-MM-yyyy')
+                                                                    .format(DateTime
+                                                                        .now()),
+                                                                "plantDescription":
+                                                                    "noDes",
+                                                                "userUID": snapshot
+                                                                    .data!
+                                                                    .docs[index]
+                                                                        [
+                                                                        'TraderAcceptingUid']
+                                                                    .toString(),
+                                                                "userFullName": snapshot
+                                                                        .data!
+                                                                        .docs[index]
+                                                                    [
+                                                                    'TraderAcceptingFullName'],
+                                                                "location": snapshot
+                                                                        .data!
+                                                                        .docs[index]
+                                                                    [
+                                                                    'PlantPickedByWantingToGiveLocation'],
+                                                              });
+                                                              await LivingPlant
+                                                                  .firebaseFirestore!
+                                                                  .collection(
+                                                                      "chats")
+                                                                  .doc(tradeProvider
+                                                                      .getChatUid!)
+                                                                  .update({
+                                                                "TradeStatus":
+                                                                    "Accepted",
+                                                              });
                                                             });
-                                                            await LivingPlant
-                                                                .firebaseFirestore!
-                                                                .collection(
-                                                                    "chats")
-                                                                .doc(tradeProvider
-                                                                    .getChatUid!)
-                                                                .update({
-                                                              "TradeStatus":
-                                                                  "Accepted",
-                                                            });
-                                                          });
-                                                        }
-                                                        Navigator.pop(context);
-                                                        tradeProvider
-                                                            .updateChatUid('');
-                                                      },
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                              shape:
-                                                                  const StadiumBorder()),
-                                                      child:
-                                                          const Text("Trade!"),
-                                                    ),
-                                                  ],
-                                                )
-                                              : Container()
-                                        ],
+                                                          }
+                                                          Navigator.pop(
+                                                              context);
+                                                          tradeProvider
+                                                              .updateChatUid(
+                                                                  '');
+                                                        },
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                                shape:
+                                                                    const StadiumBorder()),
+                                                        child: const Text(
+                                                            "Trade!"),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Container()
+                                          ],
+                                        ),
                                       ),
                                     )
                                   : Container();
