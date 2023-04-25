@@ -39,6 +39,20 @@ class _NotificationPage extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     var tradeProvider = Provider.of<traderProvider>(context, listen: true);
+    Future<AggregateQuerySnapshot> count = LivingPlant.firebaseFirestore!
+        .collection('chats')
+        .where('TradeStatus', isEqualTo: 'Pending')
+        .where('TraderAcceptingUid', isEqualTo: currentUserId)
+        .count()
+        .get();
+
+    Future quiriedDocs = LivingPlant.firebaseFirestore!
+        .collection('chats')
+        .where('TradeStatus', isEqualTo: 'Pending')
+        .where('TraderAcceptingUid', isEqualTo: currentUserId)
+        .where('Read', isEqualTo: false)
+        .get();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Notifications"),
@@ -77,17 +91,23 @@ class _NotificationPage extends State<NotificationPage> {
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
                             return snapshot.data!.docs[index]
-                                            ['TraderAskedUid'] ==
-                                        currentUserId ||
+                                            ['TraderAskedUid'] !=
+                                        currentUserId &&
                                     snapshot.data!.docs[index]
                                             ['TraderAcceptingUid'] ==
                                         currentUserId
                                 ? Container(
+                                    padding: EdgeInsets.all(5),
                                     margin: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white,
+                                    ),
                                     child: GestureDetector(
-                                        onTap: () {
+                                        onTap: () async {
                                           Route route = MaterialPageRoute(
                                               builder: (_) => PendingTrades());
+                                          // ignore: use_build_context_synchronously
                                           Navigator.push(context, route);
                                         },
                                         child: Row(
@@ -102,19 +122,22 @@ class _NotificationPage extends State<NotificationPage> {
                                               ),
                                             ),
                                             Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   snapshot
                                                       .data!
                                                       .docs[index][
-                                                          'TraderAcceptingFullName']
+                                                          'TraderAskedFullName']
                                                       .toString(),
                                                   style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
                                                     fontSize: 12,
                                                   ),
                                                 ),
                                                 const Text(
-                                                  'Wants to trade with you',
+                                                  'Wants to trade with your',
                                                   style: TextStyle(
                                                     fontSize: 10,
                                                   ),
@@ -126,11 +149,12 @@ class _NotificationPage extends State<NotificationPage> {
                                                           'PlantPickedByTraderName']
                                                       .toString(),
                                                   style: const TextStyle(
+                                                    fontStyle: FontStyle.italic,
                                                     fontSize: 12,
                                                   ),
-                                                )
+                                                ),
                                               ],
-                                            )
+                                            ),
                                           ],
                                         )),
                                   )
@@ -140,6 +164,16 @@ class _NotificationPage extends State<NotificationPage> {
                       }
                     },
                   ),
+                  // FutureBuilder<AggregateQuerySnapshot>(
+                  //   future: count,
+                  //   builder: (context, snapshot) {
+                  //     if (snapshot.connectionState == ConnectionState.done) {
+                  //       int docCount = snapshot.data!.count;
+                  //       return Text(docCount.toString());
+                  //     }
+                  //     return const CircularProgressIndicator();
+                  //   },
+                  // ),
                 ],
               ),
             )
@@ -148,6 +182,4 @@ class _NotificationPage extends State<NotificationPage> {
       )),
     );
   }
-
-  // This is to show the plants the user owns
 }

@@ -1,18 +1,26 @@
-import '../models/NotificationModel.dart';
 import 'package:flutter/material.dart';
 
-class NotificationProvider extends ChangeNotifier {
-  List<NotificationModel> _notifications = [];
+class NotificationProvider with ChangeNotifier {
+  bool? _read;
+  int? _newNotif;
+  int? _oldNotif;
 
-  List<NotificationModel> get notifications => _notifications;
+  bool? get getRead => _read;
+  int? get newNotif => _newNotif;
+  int? get oldNotif => _oldNotif;
 
-  void addNotification(NotificationModel notification) {
-    _notifications.add(notification);
+  updateRead(bool Read) {
+    _read = Read;
     notifyListeners();
   }
 
-  void clearNotifications() {
-    _notifications.clear();
+  updateNewNotif(int? newNotif) {
+    _newNotif = newNotif;
+    notifyListeners();
+  }
+
+  updateOldNotif(int? oldNotif) {
+    _oldNotif = oldNotif;
     notifyListeners();
   }
 }

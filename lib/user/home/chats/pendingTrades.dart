@@ -410,7 +410,6 @@ class _PendingTrades extends State<PendingTrades> {
                                                                         index][
                                                                     'TraderAcceptingStatust'] ==
                                                                 "Accepted") {
-                                                          ////////////////////////// First Trader //////////////////////////////////////
                                                           await LivingPlant
                                                               .firebaseFirestore!
                                                               .collection(
