@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -410,8 +411,9 @@ class _MyPlants extends State<MyPlants> {
                                               child: snapshot.data!.docs[index]
                                                           ['plantUrl'] !=
                                                       null
-                                                  ? Image.network(
-                                                      snapshot.data!.docs[index]
+                                                  ? CachedNetworkImage(
+                                                      imageUrl: snapshot
+                                                              .data!.docs[index]
                                                           ['plantUrl'],
                                                     )
                                                   : const CircularProgressIndicator(),
